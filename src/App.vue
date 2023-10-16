@@ -1,16 +1,13 @@
 <template>
-  <Header></Header>
+  <TheHeader></TheHeader>
+  <router-view></router-view>
 </template>
 
 <script>
-  import { defineComponent } from 'vue';
+  import TheHeader from './components/TheHeader.vue' 
 
-  import Header from './components/Header.vue' 
-
-  export default defineComponent({
-    name: "Header",
-    components: { Header, },
-    
+  export default({
+    components: { TheHeader, },
   });
 </script>
 
