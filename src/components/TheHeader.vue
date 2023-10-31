@@ -1,12 +1,20 @@
 <template>
   <header>
-    <nav class="nav">
+    <nav>
       <router-link id="header__logo" to="/">
-        <img src="@/assets/logo-dark.svg" alt="JEEC Logo">
+        <img class="classfied" src="@/assets/jeec-logo-dark.svg" alt="JEEC Logo">
       </router-link>
       <div class="header__right">
-        <WebAppLoginButton></WebAppLoginButton>
+        <div class="nav__links">
+          <router-link to="schedule">Schedule</router-link>
+          <router-link to="team">Team</router-link>
+          <router-link to="partners">Partners</router-link>
+          <router-link to="sponsors">Sponsors</router-link>
+          <router-link to="speakers">Speakers</router-link>
+        </div>
+        <WebAppButton></WebAppButton>
         <NavHamburguer></NavHamburguer>
+        <NavCollapsable></NavCollapsable>
       </div>
     </nav>
   </header>
@@ -14,9 +22,11 @@
 
 <script>
 import NavHamburguer from '@/components/NavHamburguer.vue';
-import WebAppLoginButton from './WebAppLoginButton.vue';
+import WebAppButton from '@/components/WebAppButton.vue';
+import NavCollapsable from '@/components/NavCollapsable.vue';
+
 
 export default {
-  components: { NavHamburguer, WebAppLoginButton},
+  components: { NavHamburguer, WebAppButton, NavCollapsable},
 }
 </script>
