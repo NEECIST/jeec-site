@@ -29,6 +29,11 @@ export default {
   destroyed() {
     window.removeEventListener("resize", this.onResize)
   },
+  mounted() {
+    this.$watch( () => this.$route.path, (to, from) => {
+      this.isActive = false
+    })
+  },
 }
 </script>
 <style>

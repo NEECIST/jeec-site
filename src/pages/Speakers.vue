@@ -1,5 +1,8 @@
 <template>
   <div>
-    <h1>Speakers</h1>
+    <h1 class="page__title">SPEAKERS</h1>
   </div>
 </template>
+
+<script>
+</script>
