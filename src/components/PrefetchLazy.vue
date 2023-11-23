@@ -2,25 +2,35 @@
   <div id="prefetch" aria-hidden="true">
     <Team></Team>
     <Partners></Partners>
+    <Schedule></Schedule>
+    <Speakers></Speakers>
   </div>
 </template>
 
 <script>
-import Partners from '@/pages/Partners.vue'
-import Team from '@/pages/Team.vue'
 import { mapActions } from 'pinia'
+import { useScheduleStore } from '@/stores/ScheduleStore'
+import { useSpeakersStore } from '@/stores/SpeakersStore'
 import { usePartnersStore } from '@/stores/PartnersStore'
 import { useTeamStore } from '@/stores/TeamStore'
+import Schedule from '@/pages/Schedule.vue'
+import Speakers from '@/pages/Speakers.vue'
+import Partners from '@/pages/Partners.vue'
+import Team from '@/pages/Team.vue'
 
 export default {
-  components: { Partners, Team },
+  components: { Schedule, Speakers, Partners, Team },
   methods: {
-    ...mapActions( useTeamStore, {teamFill: 'fill'}),
-    ...mapActions( usePartnersStore, {partnersFill: 'fill'}),
+    ...mapActions(useScheduleStore, { scheduleFill: 'fill' }),
+    ...mapActions(useSpeakersStore, { speakersFill: 'fill' }),
+    ...mapActions(usePartnersStore, { partnersFill: 'fill' }),
+    ...mapActions(useTeamStore, { teamFill: 'fill' }),
   },
   mounted() {
-    this.teamFill()
+    this.scheduleFill()
+    this.speakersFill()
     this.partnersFill()
+    this.teamFill()
   },
 }
 </script>

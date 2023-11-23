@@ -12,11 +12,11 @@
               <img v-if="member.image != null" :src="jeec_api_url + member.image">
               <img v-else id="jeec-logo" src="">
             </div>
-            <div class="member__linkedin">
+            <!-- <div class="member__linkedin">
               <a :href="member.linkedin_url" target="_blank">
                 <img class="icon-team-member" :src="linkedin_icon_link" />
               </a>
-            </div>
+            </div> -->
           </div>
           <p class="member__name">{{ member.name }}</p>
         </div>

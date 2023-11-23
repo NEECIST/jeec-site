@@ -80,6 +80,7 @@ p, a, button {
   align-items: center;
   padding-top: 70px;
   text-align: center;
+  position: relative;
 }
 
 .page__section:first-of-type {
