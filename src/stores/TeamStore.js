@@ -30,7 +30,7 @@ export const useTeamStore = defineStore('TeamStore', {
   actions: {
     fill() {
       axios
-        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/teams', {
+        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/teams_new', {
           auth: {
             username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
             password: process.env.VUE_APP_JEEC_WEBSITE_KEY
