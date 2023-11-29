@@ -25,7 +25,7 @@
 
 <script>
 import { mapState } from "pinia";
-import { useScheduleStore } from "@/stores/ScheduleStore";
+import { useScheduleStore } from "@/stores/modules/ScheduleStore";
 
 export default {
   computed: {

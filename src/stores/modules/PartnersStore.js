@@ -17,29 +17,32 @@ export const usePartnersStore = defineStore('PartnersStore', {
   actions: {
     fill (){
       axios
-      .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/companies?partnership_tier=gold', {
+      .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/companies_vue?partnership_tier=gold', {
         auth: {
           username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
           password: process.env.VUE_APP_JEEC_WEBSITE_KEY
-        }
+        },
+        event_id: this.event_id()
       })
       .then(response => (this.partners.gold = response.data['data']));
 
       axios
-        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/companies?partnership_tier=silver', {
+        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/companies_vue?partnership_tier=silver', {
           auth: {
             username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
             password: process.env.VUE_APP_JEEC_WEBSITE_KEY
-          }
+          },
+          event_id: this.event_id()
         })
         .then(response => (this.partners.silver = response.data['data']));
 
       axios
-        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/companies?partnership_tier=bronze', {
+        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/companies_vue?partnership_tier=bronze', {
           auth: {
             username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
             password: process.env.VUE_APP_JEEC_WEBSITE_KEY
-          }
+          },
+          event_id: this.event_id()
         })
         .then(response => (this.partners.bronze = response.data['data']));
     },

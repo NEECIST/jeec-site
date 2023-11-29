@@ -34,7 +34,8 @@ export const useTeamStore = defineStore('TeamStore', {
           auth: {
             username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
             password: process.env.VUE_APP_JEEC_WEBSITE_KEY
-          }
+          },
+          event_id: this.Event_id()
         })
         .then(response => (
         this.sortTeams(response.data['data'])));

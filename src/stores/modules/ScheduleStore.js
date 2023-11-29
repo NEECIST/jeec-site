@@ -16,11 +16,12 @@ export const useScheduleStore = defineStore("ScheduleStore", {
   actions: {
     fill() {
       axios
-        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/activities", {
+        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/activities_vue", {
           auth: {
             username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
             password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
           },
+          event_id: this.Event_id()
         })
         .then((response) => (this.sortActivities(response.data["data"])));
     }, 

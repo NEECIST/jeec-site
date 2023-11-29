@@ -4,6 +4,21 @@
       <router-link id="header__logo" to="/">
         <img class="classfied" src="@/assets/jeec-logo-dark.svg" alt="JEEC Logo">
       </router-link>
+
+
+      <div class="left" style="margin-left: 30px;">
+        <div class="sub_section-title">Events</div>
+        <form class="col s12" id="event_form" method="get">
+          <select v-model="selected_event_id" @change="EventSetter(selected_event_id)" name="event" id="event" class="form-control" style="width: 200px; display: block;" required>
+            <option value="" disabled></option>
+            <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
+          </select>
+        </form>
+      </div>
+  
+
+
+
       <div class="header__right">
         <div class="nav__links">
           <router-link to="schedule">Schedule</router-link>
@@ -24,10 +39,61 @@
 import NavHamburguer from '@/components/NavHamburguer.vue';
 import WebAppButton from '@/components/WebAppButton.vue';
 import NavCollapsable from '@/components/NavCollapsable.vue';
-
+import { mapGetters, mapMutations } from "vuex";
+import axios from "axios";
 
 export default {
+  
   components: { NavHamburguer, WebAppButton, NavCollapsable},
+  data() {
+    return {
+      selected_event_id: '',
+      events: [],
+      id: ''
+    }
+  }, methods: {
+    ...mapGetters("auth", ["event_id"]),
+    ...mapMutations("auth", ["setEvent_id"]),
+    EventSetter(external_id){
+          this.setEvent_id(external_id)
+      },
+  },
+    mounted() {
+    // this.id = this.event_id();
+    // console.log(this.id)
+    // axios
+    //   .get(this.jeec_api_url + "/event_vue", {
+    //     auth: {
+    //       username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+    //       password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
+    //     },
+    //     event_id: id
+    //   })
+    //   .then((response) => {
+    //     (this.event = response.data.data)
+    //     this.selected_event_id = this.bigdata.event.external_id,
+    //     this.loaded = true},
+    //     EventSetter(selected_event_id));
+
+
+    // axios
+    //   .get(this.jeec_api_url + "/events/vue", {
+    //     auth: {
+    //       username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+    //       password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     (this.events = response.data.events)
+    //     });
+
+    //   console.log(this.event)
+      
+    //   console.log(this.events)
+  },
+  
+
+
 }
 </script>
 

@@ -21,7 +21,7 @@
 
 <script>
 import { mapState } from 'pinia';
-import { useSpeakersStore } from '@/stores/SpeakersStore';
+import { useSpeakersStore } from '@/stores/modules/SpeakersStore';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 

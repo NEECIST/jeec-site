@@ -1,5 +1,7 @@
 <template>
   <div>
+    
+
     <h1 class="visibility-hidden">JEEC</h1>
     <section class="page__section" id="home__coming-soon">
       <h2>19 TO 23 OF FEBRUARY, 2024</h2>
@@ -27,6 +29,7 @@
 import HomeOffers from "@/components/HomeOffers.vue"
 import PrefetchLazy from '@/components/PrefetchLazy.vue';
 import axios from "axios"
+import { mapGetters } from "vuex";
 
 export default {
   components: { HomeOffers, PrefetchLazy, },
@@ -36,18 +39,26 @@ export default {
       jeec_api_url: process.env.VUE_APP_JEEC_WEBSITE_API_URL,
       jeec_brain_url: process.env.VUE_APP_JEEC_BRAIN_URL,
       event_logo:"../../static/jeec-logo.png",
+      
     }
-  }, mounted() {
+  }, methods: {
+    ...mapGetters("auth", ["event_id"]),
+  },
+    mounted() {
     axios
-      .get(this.jeec_api_url + "/event", {
+      .get(this.jeec_api_url + "/event_vue", {
         auth: {
           username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
           password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
         },
+        event_id: this.event_id()
       })
       .then((response) => {
         (this.event = response.data.data)
+        console.log(this.event)
         this.loaded = true});
+      
+      
   },
 }
 </script>

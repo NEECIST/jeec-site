@@ -9,10 +9,10 @@
 
 <script>
 import { mapActions } from 'pinia'
-import { useScheduleStore } from '@/stores/ScheduleStore'
-import { useSpeakersStore } from '@/stores/SpeakersStore'
-import { usePartnersStore } from '@/stores/PartnersStore'
-import { useTeamStore } from '@/stores/TeamStore'
+import { useScheduleStore } from '@/stores/modules/ScheduleStore'
+import { useSpeakersStore } from '@/stores/modules/SpeakersStore'
+import { usePartnersStore } from '@/stores/modules/PartnersStore'
+import { useTeamStore } from '@/stores/modules/TeamStore'
 import Schedule from '@/pages/Schedule.vue'
 import Speakers from '@/pages/Speakers.vue'
 import Partners from '@/pages/Partners.vue'

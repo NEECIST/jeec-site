@@ -16,7 +16,7 @@
 <script>
 import PartnerTier from "@/components/PartnerTier.vue"
 import { mapState } from 'pinia'
-import { usePartnersStore } from '@/stores/PartnersStore'
+import { usePartnersStore } from '@/stores/modules/PartnersStore'
 
 export default {
   components: { PartnerTier, },

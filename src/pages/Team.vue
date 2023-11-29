@@ -37,7 +37,7 @@
 import TeamWheel from '@/components/TeamWheel.vue'
 import TeamSection from '@/components/TeamSection.vue'
 import { mapState } from 'pinia'
-import { useTeamStore } from '@/stores/TeamStore'
+import { useTeamStore } from '@/stores/modules/TeamStore'
 
 export default {
   components: { TeamWheel, TeamSection, },
