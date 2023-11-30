@@ -7,7 +7,6 @@
 
 
       <div class="left" style="margin-left: 30px;">
-        {{ event_default }}
         <div class="sub_section-title">Events</div>
         <form class="col s12" id="event_form" method="get">
           <select v-model="selected_event_id" @change="EventSetter(selected_event_id)" name="event" id="event" class="form-control" style="width: 200px; display: block;" required>
@@ -15,8 +14,7 @@
             <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
           </select>
         </form>
-        {{event_id}}
-        
+    
       </div>
   
       
@@ -24,10 +22,9 @@
 
       <div class="header__right">
         <div class="nav__links">
-          
-          <router-link v-if="selected_event_id==event_default.external_id" to="schedule">Schedule</router-link>
+          <router-link v-if="selected_event_id==event_default_id" to="schedule">Schedule</router-link>
           <router-link to="partners">Partners</router-link>
-          <router-link v-if="selected_event_id==event_default.external_id" to="sponsors">Sponsors</router-link>
+          <router-link v-if="selected_event_id==event_default_id" to="sponsors">Sponsors</router-link>
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
         </div>
@@ -59,7 +56,8 @@ export default {
       selected_event_id: '',
       events: [],
       event: {},
-      event_default: {}
+      event_default: {},
+      event_default_id: ''
       
     }
   }, 
@@ -79,7 +77,7 @@ export default {
     
   },
   computed: {
-    ...mapWritableState(useEventStore, ['event_id', 'event_default']),
+    ...mapWritableState(useEventStore, ['event_id']),
     
   },
     mounted() {
@@ -90,29 +88,12 @@ export default {
           username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
           password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
         },
-        event_id: this.event_id
       })
       .then((response) => {
-        (this.event = response.data.data)
+        (this.event_default_id = response.data.event_id)
         this.selected_event_id = this.event.external_id,
         this.loaded = true},
         this.event_id = this.selected_event_id);
-
-    axios
-      .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/event_vue", {
-        auth: {
-          username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-          password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-        },
-        event_id: ''
-      })
-      .then((response) => {
-        (this.event_default = response.data.data)
-        // this.selected_event_id = this.event.external_id,
-        // this.loaded = true
-      },
-        // this.event_id = this.selected_event_id
-        );
 
 
     axios

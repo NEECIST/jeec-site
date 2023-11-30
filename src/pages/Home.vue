@@ -36,7 +36,7 @@ export default {
   components: { HomeOffers, PrefetchLazy, },
   data() {
     return {
-      event: null,
+      event__id: null,
       jeec_api_url: process.env.VUE_APP_JEEC_WEBSITE_API_URL,
       jeec_brain_url: process.env.VUE_APP_JEEC_BRAIN_URL,
       event_logo:"../../static/jeec-logo.png",
@@ -52,11 +52,11 @@ export default {
           username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
           password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
         },
-        event_id: this.event_id
+        // event_id: this.event_id
       })
       .then((response) => {
-        (this.event = response.data.data)
-        console.log(this.event)
+        (this.event__id = response.data.event)
+        console.log(this.event__id)
         this.loaded = true});
       
       
