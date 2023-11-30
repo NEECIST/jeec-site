@@ -36,13 +36,13 @@
 <script>
 import TeamWheel from '@/components/TeamWheel.vue'
 import TeamSection from '@/components/TeamSection.vue'
-import { mapState } from 'pinia'
-import { useTeamStore } from '@/stores/modules/TeamStore'
+import { mapWritableState } from 'pinia'
+import { useTeamStore } from '@/stores/TeamStore'
 
 export default {
   components: { TeamWheel, TeamSection, },
   computed: {
-    ...mapState(useTeamStore, ['teams'])
+    ...mapWritableState(useTeamStore, ['teams'])
   },
 }
 </script>

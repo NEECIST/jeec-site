@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import { mapState } from "pinia";
-import { useScheduleStore } from "@/stores/modules/ScheduleStore";
+import { mapWritableState } from "pinia";
+import { useScheduleStore } from "@/stores/ScheduleStore";
 
 export default {
   computed: {
-    ...mapState(useScheduleStore, ["activities"]),
+    ...mapWritableState(useScheduleStore, ["activities"]),
   },
   data() {
     return {

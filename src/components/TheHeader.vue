@@ -7,6 +7,7 @@
 
 
       <div class="left" style="margin-left: 30px;">
+        {{  bigdata.event_default }}
         <div class="sub_section-title">Events</div>
         <form class="col s12" id="event_form" method="get">
           <select v-model="selected_event_id" @change="EventSetter(selected_event_id)" name="event" id="event" class="form-control" style="width: 200px; display: block;" required>
@@ -14,16 +15,19 @@
             <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
           </select>
         </form>
+        {{bigdata.event_id}}
+        
       </div>
   
-
+      
 
 
       <div class="header__right">
         <div class="nav__links">
+          
           <router-link to="schedule">Schedule</router-link>
           <router-link to="partners">Partners</router-link>
-          <router-link to="sponsors">Sponsors</router-link>
+          <router-link  to="sponsors">Sponsors</router-link>
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
         </div>
@@ -39,8 +43,13 @@
 import NavHamburguer from '@/components/NavHamburguer.vue';
 import WebAppButton from '@/components/WebAppButton.vue';
 import NavCollapsable from '@/components/NavCollapsable.vue';
-import { mapGetters, mapMutations } from "vuex";
+import { useEventStore } from '@/stores/EventStore'
 import axios from "axios";
+import { mapWritableState, mapActions} from 'pinia'
+import { usePartnersStore } from '@/stores/PartnersStore'
+import { useTeamStore } from '@/stores/TeamStore'
+import { useSpeakersStore } from '@/stores/SpeakersStore';
+
 
 export default {
   
@@ -49,47 +58,60 @@ export default {
     return {
       selected_event_id: '',
       events: [],
-      id: ''
+      event: {}
+      
     }
-  }, methods: {
-    ...mapGetters("auth", ["event_id"]),
-    ...mapMutations("auth", ["setEvent_id"]),
-    EventSetter(external_id){
-          this.setEvent_id(external_id)
-      },
+  }, 
+  methods: {
+    ...mapActions(usePartnersStore, { updatePartners: 'fill' }),
+    ...mapActions(useSpeakersStore, { updateSpeakers: 'fill' }),
+    ...mapActions(useTeamStore, { updateTeam: 'fill' }),
+    
+    EventSetter(id) {
+        this.bigdata.event_id = id;
+        this.updateSpeakers(id);
+        this.updatePartners(id);
+        this.updateTeam(id);
+    } 
+    
+
+    
+  },
+  computed: {
+    ...mapWritableState(useEventStore, ['bigdata']),
+    
   },
     mounted() {
-    // this.id = this.event_id();
-    // console.log(this.id)
-    // axios
-    //   .get(this.jeec_api_url + "/event_vue", {
-    //     auth: {
-    //       username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-    //       password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-    //     },
-    //     event_id: id
-    //   })
-    //   .then((response) => {
-    //     (this.event = response.data.data)
-    //     this.selected_event_id = this.bigdata.event.external_id,
-    //     this.loaded = true},
-    //     EventSetter(selected_event_id));
+    console.log(this.bigdata.event_id)
+    axios
+      .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/event_vue", {
+        auth: {
+          username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+          password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
+        },
+        event_id: this.bigdata.event_id
+      })
+      .then((response) => {
+        (this.event = response.data.data)
+        this.selected_event_id = this.event.external_id,
+        this.loaded = true},
+        this.bigdata.event_id = this.selected_event_id);
 
 
-    // axios
-    //   .get(this.jeec_api_url + "/events/vue", {
-    //     auth: {
-    //       username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-    //       password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     (this.events = response.data.events)
-    //     });
+    axios
+      .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/events/vue", {
+        auth: {
+          username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+          password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
+        },
+      })
+      .then((response) => {
+        (this.events = response.data.events)
+        });
 
-    //   console.log(this.event)
+      console.log(this.event)
       
-    //   console.log(this.events)
+      console.log(this.events)
   },
   
 

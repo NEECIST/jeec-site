@@ -29,7 +29,8 @@
 import HomeOffers from "@/components/HomeOffers.vue"
 import PrefetchLazy from '@/components/PrefetchLazy.vue';
 import axios from "axios"
-import { mapGetters } from "vuex";
+import { useEventStore } from '@/stores/EventStore'
+import { mapWritableState } from 'pinia'
 
 export default {
   components: { HomeOffers, PrefetchLazy, },
@@ -41,8 +42,8 @@ export default {
       event_logo:"../../static/jeec-logo.png",
       
     }
-  }, methods: {
-    ...mapGetters("auth", ["event_id"]),
+  }, computed: {
+    ...mapWritableState(useEventStore, ['event_id'])
   },
     mounted() {
     axios
@@ -51,7 +52,7 @@ export default {
           username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
           password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
         },
-        event_id: this.event_id()
+        event_id: this.event_id
       })
       .then((response) => {
         (this.event = response.data.data)
