@@ -25,9 +25,9 @@
       <div class="header__right">
         <div class="nav__links">
           
-          <router-link to="schedule">Schedule</router-link>
+          <router-link v-if="selected_event_id==event_default.external_id" to="schedule">Schedule</router-link>
           <router-link to="partners">Partners</router-link>
-          <router-link  to="sponsors">Sponsors</router-link>
+          <router-link v-if="selected_event_id==event_default.external_id" to="sponsors">Sponsors</router-link>
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
         </div>
