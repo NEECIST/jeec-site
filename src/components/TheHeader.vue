@@ -10,16 +10,13 @@
         <div class="sub_section-title">Events</div>
         <form class="col s12" id="event_form" method="get">
           <select v-model="selected_event_id" @change="EventSetter(selected_event_id)" name="event" id="event" class="form-control" style="width: 200px; display: block;" required>
-            <option value="" disabled></option>
+            <!-- <option value="" disabled></option> -->
             <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
           </select>
         </form>
     
       </div>
   
-      
-
-
       <div class="header__right">
         <div class="nav__links">
           <router-link v-if="selected_event_id==event_default_id" to="schedule">Schedule</router-link>
@@ -91,9 +88,11 @@ export default {
       })
       .then((response) => {
         (this.event_default_id = response.data.event_id)
-        this.selected_event_id = this.event.external_id,
+        this.selected_event_id = this.event_default_id,
         this.loaded = true},
         this.event_id = this.selected_event_id);
+
+    console.log(this.selected_event_id)
 
 
     axios
