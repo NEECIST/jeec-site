@@ -6,28 +6,47 @@
       </router-link>
 
 
-      <div class="left" style="margin-left: 30px;">
+      <!-- <div class="left" style="margin-left: 30px;">
         <div class="sub_section-title">Events</div>
         <form class="col s12" id="event_form" method="get">
           <select v-model="selected_event_id" @change="EventSetter(selected_event_id)" name="event" id="event" class="form-control" style="width: 200px; display: block;" required>
-            <!-- <option value="" disabled></option> -->
-            <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
+            <option value="" disabled></option> -->
+            <!-- <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
           </select>
         </form>
-    
-      </div>
+      </div> -->
   
       <div class="header__right">
+        
         <div class="nav__links">
-          <router-link v-if="selected_event_id==event_default_id" to="schedule">Schedule</router-link>
+          <router-link v-if="event_id==event_default_id" to="schedule">Schedule</router-link>
           <router-link to="partners">Partners</router-link>
-          <router-link v-if="selected_event_id==event_default_id" to="sponsors">Sponsors</router-link>
+          <router-link v-if="event_id==event_default_id" to="sponsors">Sponsors</router-link>
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
+          <!-- <button v-for="_event in events" :key="_event.id" :value="_event.external_id" class="events" @click="EventSetter(_event.id)">{{ _event.name }}</button> -->
+          
+          <!-- <EventHamburguer></EventHamburguer>
+          <EventCollapsable></EventCollapsable> -->
+
+          <!-- <div class="left" style="margin-left: 30px;">
+            <div class="sub_section-title">Events</div>
+              <form class="col s12" id="event_form" method="get"> -->
+                <!-- <select v-model="selected_event_id" @change="EventSetter(selected_event_id)" name="event" id="event" class="select" style="width: 200px; display: block;" required>
+                  <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
+                </select> -->
+              <!-- </form>
+          </div> -->
+                                        
+          <EventDropdown :event=events></EventDropdown>
+
         </div>
+        
+      
+
         <WebAppButton></WebAppButton>
         <NavHamburguer></NavHamburguer>
-        <NavCollapsable></NavCollapsable>
+        <NavCollapsable :event=events :id=event_id></NavCollapsable>
       </div>
     </nav>
   </header>
@@ -43,11 +62,12 @@ import { mapWritableState, mapActions} from 'pinia'
 import { usePartnersStore } from '@/stores/PartnersStore'
 import { useTeamStore } from '@/stores/TeamStore'
 import { useSpeakersStore } from '@/stores/SpeakersStore';
+import EventDropdown from './EventDropdown.vue';
 
 
 export default {
   
-  components: { NavHamburguer, WebAppButton, NavCollapsable},
+  components: { NavHamburguer, WebAppButton, NavCollapsable, EventDropdown},
   data() {
     return {
       selected_event_id: '',
@@ -88,9 +108,9 @@ export default {
       })
       .then((response) => {
         (this.event_default_id = response.data.event_id)
-        this.selected_event_id = this.event_default_id,
+        this.event_id = this.event_default_id,
         this.loaded = true},
-        this.event_id = this.selected_event_id);
+        );
 
     console.log(this.selected_event_id)
 
@@ -154,6 +174,25 @@ nav {
   z-index: 0;
   height: 100%;
   width: auto;
+}
+
+/* .select {
+  font-family: "Russo One";
+  text-decoration: none;
+  width: 100px;
+  font-size: 1.1rem;
+  padding: .7rem .5rem;
+  border-radius: 5px;
+  background-color: var(--color-header-dark);
+} */
+
+.events {
+  font-family: "Russo One";
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: .7rem .5rem;
+  border-radius: 5px;
+  background-color: var(--color-header-dark);
 }
 
 .nav__links {
