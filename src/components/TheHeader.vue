@@ -38,7 +38,7 @@
               <!-- </form>
           </div> -->
                                         
-          <EventDropdown :event=events></EventDropdown>
+          <EventDropdown class="events" :event=events></EventDropdown>
 
         </div>
         
@@ -186,21 +186,22 @@ nav {
   background-color: var(--color-header-dark);
 } */
 
-.events {
+/* .events {
   font-family: "Russo One";
   text-decoration: none;
   font-size: 1.1rem;
   padding: .7rem .5rem;
   border-radius: 5px;
   background-color: var(--color-header-dark);
-}
+} */
+
 
 .nav__links {
   display: flex;
   gap: 20px;
 }
 
-.nav__links > a {
+.nav__links > * {
   font-family: "Russo One";
   text-decoration: none;
   font-size: 1.1rem;
@@ -208,7 +209,7 @@ nav {
   border-radius: 5px;
 }
 
-.nav__links > :is(a:hover, a:focus-visible) {
+.nav__links > :is(*:hover, *:focus-visible) {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -309,7 +310,7 @@ nav {
   width: auto;
 }
 
-.nav__collapsable > a{
+.nav__collapsable > * {
   font-size: 1.5rem;
   text-decoration: none;
   font-family: "Russo One";
@@ -321,12 +322,12 @@ nav {
   transition: all 0.5s;
 }
 
-.nav__toggle.active ~ .nav__collapsable > a {
+.nav__toggle.active ~ .nav__collapsable > * {
   opacity: 1;
   transition: all 0.5s;
 }
 
-.nav__collapsable > :is(a:hover, a:focus-visible){
+.nav__collapsable > :is(*:hover, *:focus-visible){
   background: radial-gradient(
     150% 300% at top left,
     rgba(40, 40, 40, 0.35),

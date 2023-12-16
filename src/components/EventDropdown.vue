@@ -57,19 +57,19 @@ export default {
 </script>
 
 <style>
-nav .menu-item svg {
+.menu-item svg {
   width: 10px;
   margin-left: 10px;
 }
 
-nav .menu-item .sub-menu {
+.menu-item .sub-menu {
   position: absolute;
   background-color: #222;
   top: calc(100% + 18px);
-  left: 73%;
   transform: translateX(-50%);
   width: max-content;
   border-radius: 0px 0px 16px 16px;
+  justify-content: center;
 }
 
 .fade-enter-active,
@@ -81,4 +81,5 @@ nav .menu-item .sub-menu {
 .fade-leave-to {
   opacity: 0;
 }
+
 </style>
