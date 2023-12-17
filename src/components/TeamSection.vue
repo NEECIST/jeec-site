@@ -61,8 +61,6 @@ export default {
       let teamName = this.team.name ? this.team.name : ""
       return teamName.toLowerCase().replace(/\s/g, "")
     }
-  }, mounted() {
-    console.log(this.team)
   },
 }
 </script>

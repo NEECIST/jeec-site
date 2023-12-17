@@ -1,7 +1,5 @@
 <template>
   <div>
-    
-
     <h1 class="visibility-hidden">JEEC</h1>
     <section class="page__section" id="home__coming-soon">
       <h2>19 TO 23 OF FEBRUARY, 2024</h2>
@@ -26,7 +24,7 @@ import { useEventStore } from '@/stores/EventStore'
 import { mapWritableState } from 'pinia'
 
 export default {
-  components: { HomeOffers, PrefetchLazy, },
+  components: { HomeCountdown, HomeOffers, PrefetchLazy, },
   data() {
     return {
       event__id: null,

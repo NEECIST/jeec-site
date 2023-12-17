@@ -27,7 +27,7 @@ export const useTeamStore = defineStore('TeamStore', {
           members: { data: []}
         },
       },
-      doneLoading: false,
+      teamImages: {}
     }
   },
   computed: {
@@ -45,6 +45,16 @@ export const useTeamStore = defineStore('TeamStore', {
           
         })
         .then(response => (
+        this.teamImages = response.data['data']));
+
+        axios
+        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/teams_image?event_id =default', {
+          auth: {
+            username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+            password: process.env.VUE_APP_JEEC_WEBSITE_KEY
+          },
+        })
+        .then(response => (
         this.formatTeamName(response.data['data'])));
       }
       else {
@@ -57,7 +67,18 @@ export const useTeamStore = defineStore('TeamStore', {
           
         })
         .then(response => (
-        this.formatTeamName(response.data['data'])));
+          console.log(response.data['data']),
+          this.formatTeamName(response.data['data'])));
+
+          axios
+          .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/teams_image?event_id='+eventid, {
+            auth: {
+              username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+              password: process.env.VUE_APP_JEEC_WEBSITE_KEY
+            },
+          })
+          .then(response => (
+            this.formatTeamName(response.data['data'])));
       }
     },
 

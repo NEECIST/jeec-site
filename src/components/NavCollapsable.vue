@@ -100,7 +100,7 @@ export default {
   transition: transform ease-out .5s;
 }
 
-/* .nav__collapsable > .webapp-btn {
+.nav__collapsable > .webapp-btn {
   display: none;
   position: absolute;
   height: 38px;
@@ -117,9 +117,9 @@ export default {
   left: 20px;
   top: 20px;
   width: auto;
-} */
+}
 
-.nav__collapsable > a{
+.nav__collapsable > * {
   font-size: 1.5rem;
   text-decoration: none;
   font-family: "Russo One";
@@ -129,34 +129,20 @@ export default {
   border-radius: 10px;
   opacity: 0;
   transition: all 0.5s;
+  cursor: pointer;
 }
 
-.nav__toggle.active ~ .nav__collapsable > a {
+.nav__toggle.active ~ .nav__collapsable > * {
   opacity: 1;
   transition: all 0.5s;
+  cursor: pointer;
 }
 
-.nav__collapsable > :is(a:hover, a:focus-visible){
+.nav__collapsable > :is(*:hover, *:focus-visible){
   background: radial-gradient(
     150% 300% at top left,
     rgba(40, 40, 40, 0.35),
     rgba(0, 0, 0, 0.35));
-} 
-
-.nav__collapsable > .webapp-btn {
-  background: linear-gradient(230deg, #F72585, #7209B7 90%);
-  border: none;
-  font-size: 1.3rem;
-  color: white;
-  border-radius: 18px;
-  cursor: pointer;
-  padding: 0.5rem 2rem;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  font-family: 'Lexend Deca';
-  font-size: 0.9rem;
 }
 
 @media screen and (max-width: 1007px) {

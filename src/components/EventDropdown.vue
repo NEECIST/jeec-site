@@ -1,18 +1,15 @@
 <template>
-  <div class="menu-item" @click="isOpen = !isOpen">
+  <button class="menu-item" @click="isOpen = !isOpen">
       Events
-    <!-- <svg viewBox="0 0 1030 638" width="10">
-      <path d="M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z" fill="#FFF"></path>
-    </svg>
-    <transition name="fade" appear> -->
-      <div class="sub-menu" v-if="isOpen">
-
-        <div v-for="_event in event" :key="_event.id" class="menu-item">
-          <div class="button" @click="EventSetter(_event.external_id)">{{ _event.name }}</div>
+      <template v-if="isOpen">
+        <div class="sub-menu" :class="{active : isOpen}">
+  
+          <template v-for="_event in event" :key="_event.id">
+            <button @click="EventSetter(_event.external_id)">{{ _event.name }}</button>
+          </template>
         </div>
-      </div>
-    <!-- </transition> -->
-  </div>
+      </template>
+    </button>
 </template>
 
 
@@ -57,29 +54,43 @@ export default {
 </script>
 
 <style>
-.menu-item svg {
-  width: 10px;
-  margin-left: 10px;
+.menu-item {
+  border: none;
+  background-color: transparent;
+  position: relative
 }
 
 .menu-item .sub-menu {
   position: absolute;
-  background-color: #222;
-  top: calc(100% + 18px);
-  transform: translateX(-50%);
+  background-color: var(--clr-dark-header);
+  top: calc(100% + 10px);
   width: max-content;
   border-radius: 0px 0px 16px 16px;
   justify-content: center;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: all .5s ease-out;
-}
-
-.fade-enter,
-.fade-leave-to {
   opacity: 0;
+  left: -2rem;
+  padding: 10px 1rem;
+  width: calc(100% + 3rem);
+  display: flex;
+  flex-direction: column;
 }
+
+.menu-item .sub-menu.active {
+  opacity: 1;
+  transition: all 1s;
+}
+
+.sub-menu button {
+  background-color: transparent;
+  border: none;
+  font-family: 'Russo One';
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.sub-menu button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 
 </style>
