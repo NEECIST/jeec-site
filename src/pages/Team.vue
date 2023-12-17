@@ -7,29 +7,17 @@
           <TeamWheel></TeamWheel>
         </div>
         <div class="meet__info">
-          <h2>Meet our team</h2>
-          <p class="">Connecting the best students, companies and engineers for over 20 years!</p>
+          <h2 class="page__subtitle">Meet our team</h2>
+          <p class="page__description">Connecting the best students, companies and engineers for over 20 years!</p>
         </div>
       </div>
     </section>
-    <section class="page__section" id="coordination">
-      <TeamSection :team="teams.coordination" accentColor="#1A9CD8"></TeamSection>
-    </section>
-    <section class="page__section" id="webdev">
-      <TeamSection :team="teams.webdev" accentColor="#7209B7"></TeamSection>
-    </section>
-    <section class="page__section" id="marketing">
-      <TeamSection :team="teams.marketing" accentColor="#A414A4"></TeamSection>
-    </section>
-    <section class="page__section" id="business">
-      <TeamSection :team="teams.business" accentColor="#F72585"></TeamSection>
-    </section>
-    <section class="page__section" id="logistics" v-if="teams.logistics.name != null">
-      <TeamSection :team="teams.logistics" accentColor="#605ED0"></TeamSection>
-    </section>
-    <section class="page__section" id="speakers" v-if="teams.speakers.name != null">
-      <TeamSection :team="teams.speakers" accentColor="#4CC9F0"></TeamSection>
-    </section>
+    
+    <template v-for="team in this.teams">
+      <section class="page__section"  v-if="team.name != null" :id="team.name.toLowerCase().replace(/\s/g, '') + '_route'">
+        <TeamSection :team="team"></TeamSection>
+      </section>
+    </template>
   </div>
 </template>
 
@@ -43,7 +31,7 @@ export default {
   components: { TeamWheel, TeamSection, },
   computed: {
     ...mapState(useTeamStore, ['teams'])
-  },
+  }
 }
 </script>
 
@@ -56,6 +44,7 @@ export default {
   width: 100%;
   max-width: 1000px;
   gap: 50px;
+  padding-bottom: 3rem;
 }
 
 .team__wheel__wrapper {
@@ -70,15 +59,23 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-}
-
-.meet__info h2 {
-  font-size: 2.5rem;
-}
-
-.meet__info p {
-  font-size: 1.3rem;
+  max-width: 500px;
 }
 
 /* #endregion */
+
+
+@media screen and (max-width: 1007px){
+  .meet__wrapper {
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+  .team__wheel__wrapper {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+
+}
 </style>

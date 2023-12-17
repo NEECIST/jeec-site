@@ -24,7 +24,8 @@ export const useTeamStore = defineStore('TeamStore', {
         speakers: {
           members: { data: []}
         },
-      }
+      },
+      doneLoading: false,
     }
   },
   actions: {
@@ -37,17 +38,14 @@ export const useTeamStore = defineStore('TeamStore', {
           }
         })
         .then(response => (
-        this.sortTeams(response.data['data'])));
+          console.log(response.data['data']),
+          this.formatTeamName(response.data['data'])))
     },
 
-    sortTeams(arr) {
+    formatTeamName(arr) {
       arr.forEach(element => {
         const teamName = this.formatString(element.name)
         this.teams[teamName] = element
-
-        // TEMPORARY IMAGE -- TO BE REMOVED IN PRODUCTION
-        this.teams[teamName].groupImage = "@/assets/teamgroupimage.jpg"
-        // TEMPORARY IMAGE -- TO BE REMOVED IN PRODUCTION
       });
     },
 

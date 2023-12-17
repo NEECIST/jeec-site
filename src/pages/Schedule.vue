@@ -54,10 +54,6 @@ export default {
       this.activities[week][0].isShowing = true;
     },
   },
-  mounted() {
-    console.log(this.activities);
-    console.log(this.activities.monday[1]);
-  },
 };
 </script>
 
