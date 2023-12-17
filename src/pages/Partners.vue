@@ -1,25 +1,25 @@
 <template>
   <div>
     <h1 class="page__title">PARTNERS</h1>
-    <p class="page__description">Partners are companies appearing in the fair (tech companies, banks, etc). Coordinationis to write a better description. </p>
+    <p class="page__description">Get to know our amazing partners present during the week, be it with a stand at the job fair or with a soft-skills workshop!</p>
     <section class="page__section">
-      <PartnerTier tier="gold" :partners="partners.gold"></PartnerTier>
+      <CompanyTier type="Partners" tier="gold" :companies="partners.gold"></CompanyTier>
     </section>
     <section class="page__section">
-      <PartnerTier tier="silver" :partners="partners.silver"></PartnerTier>
+      <CompanyTier type="Partners" tier="silver" :companies="partners.silver"></CompanyTier>
     </section>
     <section class="page__section">
-      <PartnerTier tier="bronze" :partners="partners.bronze"></PartnerTier>
+      <CompanyTier type="Partners" tier="bronze" :companies="partners.bronze"></CompanyTier>
     </section>
   </div>
 </template>
 <script>
-import PartnerTier from "@/components/PartnerTier.vue"
+import CompanyTier from "@/components/CompanyTier.vue"
 import { mapWritableState } from 'pinia'
 import { usePartnersStore } from '@/stores/PartnersStore'
 
 export default {
-  components: { PartnerTier, },
+  components: { CompanyTier, },
   computed: {
     ...mapWritableState(usePartnersStore, ['partners'])
   }

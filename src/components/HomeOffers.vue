@@ -1,15 +1,20 @@
 <template>
-  <div class="component__wrapper">
+  <div id="home__offers">
+    <h2>WHAT WE OFFER</h2>
     <div class="offers__button__wrapper">
-      <button v-for="offer in offersList" v-on:click="showOffer" :id="offer[0]" class="offers__button gradient-border">{{ offer[1] }}</button>
+      <button v-for="(offer, index) in offersList" :id="index"  v-on:click="showOffer(index)" class="offers__button gradient-border">{{ offer[0] }}</button>
     </div>
-    <div class="offers__info__wrapper">
-      <div class="offer__title gradient-border">
-        <h3 ref="offer__title"></h3>
-      </div>
-      <div class="offer__description gradient-border">
-        <p ref="offer__description"></p>
-      </div>
+    <div :class="{active: isActive}" class="home__offers">
+      <div  class="offers__info__wrapper">
+        <div class="offer__title gradient-border">
+          <h3 ref="offer__title"></h3>
+        </div>
+        <div class="offer__description gradient-border">
+          <p ref="offer__description"></p>
+        </div>
+      </div>  
+      <div class="curtains__left"></div>
+      <div class="curtains__right"></div>
     </div>
   </div>
 </template>
@@ -19,30 +24,42 @@
 export default {
   data() {
     return {
-      isActive: false,
+      isActive: true,
+      previousOffer: "",
+      currentOffer: "offer__2",
       offersList: {
-        offer__1: ["offer__1", "Inside Talks", "Lorem ipsum 1, dolor sit amet consectetur adipisicing elit. Fugiat libero quo porro veritatis suscipit at quia officia incidunt, illo, consequuntur eveniet minima modi. Tenetur nulla iure, sequi reiciendis odio et!"],
-        offer__2: ["offer__2", "Job Fair", "Get in touch with your favorite companies and take the chance to clear up doubts and curiosities."],
-        offer__3: ["offer__3", "Panel", "Lorem ipsum 3 dolor sit amet consectetur, adipisicing elit. Incidunt, alias, quaerat recusandae quis minus molestiae eos veniam omnis labore et id, debitis consequuntur natus repudiandae perferendis ad nobis cupiditate iste."],
-        offer__4: ["offer__4", "Main Speaker", "Lorem ipsum 4 dolor sit amet consectetur adipisicing elit. Blanditiis laboriosam quam laudantium et odio, officia consectetur nobis, facere, in vitae minus illum? Ex atque aperiam impedit est temporibus minus molestias."],
-        offer__5: ["offer__5", "Fast Meetings", "Lorem ipsum 5 dolor sit amet consectetur adipisicing elit. Modi labore maxime dignissimos est in vitae tenetur iusto. Perspiciatis, laborum. Dignissimos sunt quas nostrum animi nobis debitis asperiores laboriosam, voluptas quis!"],
-        offer__6: ["offer__6", "Workshops", "Lorem ipsum 6 dolor sit amet consectetur adipisicing elit. Nihil deserunt velit tempore alias quaerat totam adipisci commodi! Ab impedit dolores laboriosam, reiciendis dolor quo sapiente, molestias pariatur, tempora in nemo."],
-        offer__7: ["offer__7", "15/15", "Lorem ipsum 7 dolor sit amet consectetur adipisicing elit. Error facere at, explicabo neque suscipit illo! Quibusdam, distinctio minus laborum facere, officia hic magnam temporibus cumque veritatis eius provident animi accusantium!"],
+        offer__1: ["Inside Talks", "Have the possibility of speaking with an engineer about his daily working life and professional career in a round table activity"],
+
+        offer__2: ["Job Fair", "Get in touch with your favorite companies and take the chance to clear up doubts or curiosities."],
+
+        offer__3: ["Panels", "Grab a coffee and enjoy a discussion about a disruptive science or tech invention!"],
+
+        offer__4: ["Main Speaker", "Listen to the best international speakers of the most prestigious tech companies!"],
+
+        offer__5: ["Fast Meetings", "Learn more about the different Masters available @ Tecnico and the different career choices made by our Alumni!"],
+
+        offer__6: ["Workshops", "Learn more about a specific application or topic developed by a company in an interactive activity, while also developing your hard and soft-skills."],
+
+        offer__7: ["15/15", "Get to know more about the top companies present at JEEC and their current projects in the tech industry."],
       }
     }
   },
   methods: {
-    showOffer(e){
-      e.target.classList.add("active");
+    showOffer(index){
+      this.previousOffer = this.currentOffer
+      this.currentOffer = index
 
-      console.log(this.offersList);
-      
-      
-      const offerID = e.target.id
+      const prevButton = document.getElementById(this.previousOffer)
+      const currButton = document.getElementById(this.currentOffer)
 
-      this.$refs.offer__title.innerHTML = this.offersList[`${offerID}`][1].toUpperCase()
-      this.$refs.offer__description.innerHTML = this.offersList[`${offerID}`][2]
+      prevButton.classList.remove("active")
+      currButton.classList.add("active")
+
+      this.$refs.offer__title.innerHTML = this.offersList[index][0].toUpperCase()
+      this.$refs.offer__description.innerHTML = this.offersList[index][1]
     },
+  }, mounted() {
+    this.showOffer("offer__1")
   },
 }
 
@@ -77,25 +94,73 @@ export default {
 }
 
 .offers__button::before {
-  background: var(--color-background-dark);
+  background: var(--clr-dark-background);
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   border-radius: 19px;
 }
 
-.offers__button:hover::before {
-  /* background: radial-gradient(153.59% 124.29% at 13.41% 25.29%, rgba(76, 201, 240, 1) 0%, rgba(114, 9, 183, 1) 100%); */
+.offers__button:is(:hover, :focus-visible, .active)::before {
   background: none;
+}
+
+.home__offers {
+  /* height: 0px; */
+  height: 250px;
+  transition: all 0.2s;
+  overflow: hidden;
+  margin-top: 50px;
+  position: relative;
+}
+
+.home__offers.active {
+  height: 250px;
+  transition: all 0.3s;
+}
+
+.curtains__left,
+.curtains__right {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--clr-dark-background);
+  top: 0;
+  transition: all 0.5s;
+}
+
+.curtains__left {
+  left: 40%;
+}
+
+.curtains__right {
+  right: 60%;
+}
+
+.home__offers.active .curtains__left,
+.home__offers.active .curtains__right {
+  transition: all 0.5s;
+}
+
+.home__offers.active .curtains__left {
+  left: 100%;
+}
+
+.home__offers.active .curtains__right {
+  right: 100%;
 }
 
 .offers__info__wrapper {
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
-  padding-top: 50px;
   align-items: center;
   max-width: 850px;
   margin: 0 auto;
+}
+
+.home__offers.active .offer__title {
+  transform: translateX(0%);
+  transition: transform 0.5s;
 }
 
 .offer__title {
@@ -108,6 +173,9 @@ export default {
   align-items: center;
   text-align: center;
   border-radius: 20px 0 0 20px;
+  transform: translateX(100%);
+  transition: transform 0.5s;
+  overflow-x: hidden;
 }
 
 .offer__title::before {
@@ -118,18 +186,23 @@ export default {
 }
 
 .offer__title h3 {
-  font-size: 3rem;
+  display: inline-block;
+  font-size: 2.4rem;
   font-family: "Russo One";
-  /* margin-right: -1px; */
   letter-spacing: 0.4rem;
   padding: 0 1rem;
+}
+
+.home__offers.active .offer__description {
+  transform: translateX(0);
+  transition: transform 0.5s;
 }
 
 .offer__description {
   flex-basis: 60%;
   flex-grow: 1;
   height: 250px;
-  margin-left: -1px;
+  margin-left: -2px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,6 +210,10 @@ export default {
   border-radius: 20px;
   padding: 20px;
   line-height: 1.15;
+  transition: transform 0.5s;
+  overflow: hidden;
+  transform: translateX(-100%);
+  overflow-x: hidden;
 }
 
 .offer__description::before {
@@ -147,22 +224,70 @@ export default {
 }
 
 .offer__description p {
-  overflow-y: auto;
   width: 100%;
   max-height: 100%;
   font-weight: 600;
   text-align: center;
   letter-spacing: 0.18rem;
   font-family: "Lexend Deca";
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   vertical-align: middle;
 }
 
+@media screen and (max-width: 1007px) {
+  #home__offers > h2{
+    font-size: 2rem;
+    padding-bottom: 30px;
+  }
+  .home__offers.active {
+    height: auto;
+  }
+  .offers__info__wrapper {
+    flex-direction: column;
+  }
+  .offer__title {
+    border-radius: 20px 20px 0 0;
+    padding: 2rem;
+    flex-basis: 100%;
+    max-width: 500px;
+    width: 70%;
+  }
+  .offer__title::before {
+    border-radius: 18px 18px 0 0;
+  }
+  .offer__title h3 {
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+  }
+  .offer__description {
+    flex-basis: 100%;
+    margin-left: 0;
+    margin-top: -2px;
+    height: auto;
+    max-width: 600px;
+    width: 100%;
+  }
+  .offer__description p {
+    font-size: 1.2rem;
+  }
+}
+
 @media screen and (max-width: 640px) {
+  #home__offers > h2{
+    font-size: 1.7rem;
+    padding-bottom: 30px;
+  }
   .offers__button__wrapper{
     gap: 0.7rem;
   }
   .offers__button {
+    font-size: 1.1rem;
+  }
+  .offer__title h3 {
+    font-size: 1.6rem;
+    letter-spacing: 0.2rem;
+  }
+  .offer__description p {
     font-size: 1.1rem;
   }
 }

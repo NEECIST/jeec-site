@@ -24,9 +24,7 @@
         document.documentElement.focus()
       }),
 
-      setTimeout(() => {
-        this.loadPrefetch = true;
-      }, 1000);
+      this.loadPrefetch = true
     }
   });
 </script>

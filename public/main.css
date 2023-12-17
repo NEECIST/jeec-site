@@ -1,7 +1,7 @@
 :root {
-  --color-background-dark: #1f1f1f;
-  --color-header-dark: #2b2b2b;
-  --color-font-dark: white;
+  --clr-dark-background: #1f1f1f;
+  --clr-dark-header: #2b2b2b;
+  --clr-dark-font: #efeeee;
   --border-radius-default: 35px;
 }
 
@@ -17,25 +17,25 @@
 }
 
 body {
-  background-color: var(--color-header-dark);
-  color: white;
+  background-color: var(--clr-dark-header);
+  color: var(--clr-dark-font);
   z-index: 0;
 }
 
 main {
-  background-color: var(--color-background-dark);
-  padding: 70px 10px;
+  background-color: var(--clr-dark-background);
+  padding: 70px 0;
   overflow-x: hidden;
 }
 
 h1, h2 {
   font-family: "Russo One", sans-serif;
-  color: white
+  color: var(--clr-dark-font)
 }
 
 p, a, button {
   font-family: "Lexend Deca", sans-serif;
-  color: white;
+  color: var(--clr-dark-font);
 }
 
 .classified {
@@ -52,10 +52,6 @@ p, a, button {
   width: 1px;
   padding: 0;
   border: 0;
-}
-
-.component__wrapper {
-  width: 100%;
 }
 
 .gradient-border {
@@ -78,7 +74,7 @@ p, a, button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 70px;
+  padding: 70px 10px 0 10px;
   text-align: center;
   position: relative;
 }
@@ -88,21 +84,23 @@ p, a, button {
 }
 
 .page__title {
-  color: var(--color-background-dark);
+  color: var(--clr-dark-background);
   text-align: center;
-  text-shadow: 0px 0px 15px #4CC9F0;
+  text-shadow: 0px 0px 15px #4CC9F0,
+               2px 2px 0 #4CC9F0,
+               2px -2px 0 #4CC9F0,
+               -2px 2px 0 #4CC9F0,
+               -2px -2px 0 #4CC9F0;
+               
   font-family: Russo One;
   font-size: 3.4rem;
-  line-height: 2.8rem; /* 83.333% */ 
   margin: 2rem auto;
   position: relative;
   width: min-content;
-  height: 4rem;
-  -webkit-text-stroke: 1.8px #4CC9F0;
   text-transform: uppercase;
 }
 
-.page__title::after {
+/* .page__title::after {
   content: "";
   height: 0.25rem;
   background-color: #7209B7;
@@ -111,12 +109,48 @@ p, a, button {
   position: absolute;
   left: -10%;
   bottom: 0;
+} */
+
+.page__subtitle {
+  font-size: 2.4rem;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .page__description {
-  color: var(--Greyish-White, #E7E7E7);
-  text-align: center;
-  font-family: "Lexend Deca";
+  color: #E7E7E7;
   font-size: 1.4rem;
   padding-bottom: 3rem;
+  max-width: 900px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1007px){
+  .page__section:first-of-type {
+    padding-top: 35px;
+  }
+  .page__title {
+    font-size: 3.1rem;
+    margin: 1.7rem auto;
+  }
+  .page__subtitle {
+    font-size: 2.1rem;
+  }
+  .page__description {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .page__section:first-of-type {
+    padding-top: 30px;
+  }
+  .page__title {
+    font-size: 2.8rem;
+    margin: 1.4rem auto
+  }
+  .page__subtitle {
+    font-size: 1.8rem;
+  }
 }

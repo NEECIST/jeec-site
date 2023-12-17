@@ -145,7 +145,7 @@ header {
 }
 
 nav {
-  background-color: var(--color-header-dark);
+  background-color: var(--clr-dark-header);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -333,7 +333,6 @@ nav {
     rgba(40, 40, 40, 0.35),
     rgba(0, 0, 0, 0.35));
 }
-
 @media screen and (max-width: 1007px){
   .header__right{
     width: 260px;
@@ -346,9 +345,6 @@ nav {
     position: absolute;
     display: none;
   }
-  .nav__collapsable {
-    display: flex;
-  }
 }
 
 @media screen and (max-width: 640px) {
@@ -358,12 +354,6 @@ nav {
   .webapp-btn {
     position: absolute;
     display: none;
-  }
-  .nav__collapsable {
-    width: 100vw;
-  }
-  .nav__collapsable > .webapp-btn {
-    display: flex;
   }
 }
 </style>
