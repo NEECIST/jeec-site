@@ -48,7 +48,7 @@ export const useTeamStore = defineStore('TeamStore', {
         this.teamImages = response.data['data']));
 
         axios
-        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/teams_image?event_id =default', {
+        .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/teams_image?event_id=default', {
           auth: {
             username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
             password: process.env.VUE_APP_JEEC_WEBSITE_KEY
