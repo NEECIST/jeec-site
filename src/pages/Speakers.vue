@@ -47,14 +47,14 @@
 </template>
 
 <script>
-import { mapState } from 'pinia'
-import { useSpeakersStore } from '@/stores/SpeakersStore'
+import { useSpeakersStore } from '@/stores/SpeakersStore';
+import { mapWritableState } from 'pinia';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide } from 'vue3-carousel'
 
 export default {
   computed: {
-    ...mapState(useSpeakersStore, ['speakers']),
+    ...mapWritableState(useSpeakersStore, ['speakers']),
   }, components: {
     Carousel,
     Slide,

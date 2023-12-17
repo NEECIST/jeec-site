@@ -15,13 +15,13 @@
 </template>
 <script>
 import CompanyTier from "@/components/CompanyTier.vue"
-import { mapState } from 'pinia'
+import { mapWritableState } from 'pinia'
 import { usePartnersStore } from '@/stores/PartnersStore'
 
 export default {
   components: { CompanyTier, },
   computed: {
-    ...mapState(usePartnersStore, ['partners'])
+    ...mapWritableState(usePartnersStore, ['partners'])
   }
 }
 </script>
