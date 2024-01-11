@@ -3,7 +3,7 @@
     <h1 class="page__title">Speakers</h1>
     <section class="page__section">
       <div class="carousel__wrapper">
-        <Carousel ref="carousel" :autoplay="2000" :wrap-around="true" :transition="500" :breakpoints="carousel_breakpoints">
+        <Carousel v-if="!recalculateCarousel" ref="carousel" :autoplay="2000" :wrap-around="true" :transition="500" :breakpoints="carousel_breakpoints">
           <Slide v-for="speaker in speakers" :key="speaker">
             <button @click="openPopup(speaker)" class="speaker__card">
               <img class="speaker__image" :src="jeec_api_url + speaker.image" :alt="'Speaker ' + speaker.name + ' image'">
@@ -53,12 +53,8 @@ import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide } from 'vue3-carousel'
 
 export default {
-  computed: {
-    ...mapWritableState(useSpeakersStore, ['speakers']),
-  }, components: {
-    Carousel,
-    Slide,
-  }, data() {
+  components: { Carousel, Slide,},
+  data() {
     return {
       jeec_api_url: process.env.VUE_APP_JEEC_BRAIN_URL,
       carousel_breakpoints: {
@@ -79,6 +75,16 @@ export default {
       popupSpeakerLinkedin: "",
       popupSpeakerPosition: "",
       popupSpeakerBio: "",
+      recalculateCarousel: false,
+    }
+  }, computed: {
+    ...mapWritableState(useSpeakersStore, ['speakers']),
+  }, watch: {
+    speakers() {
+      this.recalculateCarousel = true
+      this.$nextTick(() => {
+        this.recalculateCarousel = false
+      })
     }
   }, methods: {
     openPopup(speaker) {

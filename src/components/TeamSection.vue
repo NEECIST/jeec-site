@@ -216,6 +216,7 @@ export default {
   width: 232px;
   aspect-ratio: 1.0251046025;
   z-index: 3;
+  pointer-events: none;
 }
 
 .member__visuals {

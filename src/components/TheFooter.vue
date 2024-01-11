@@ -11,7 +11,7 @@
         <a href="https://www.youtube.com/@JEECvideos"><img src="@/assets/socials/youtube-logo.svg" alt="jeec's youtube channel"></a>
         <a href="https://pt.linkedin.com/company/jeecist"><img src="@/assets/socials/linkedin-logo.svg" alt="jeec's linkedin page"></a>
       </div>
-      <button class="footer__email"><img src="@/assets/socials/email.svg" alt="email"><p>coordination@jeec.ist</p></button>
+      <a href="mailto:coordination@jeec.ist" target="_blank" class="footer__email"><img src="@/assets/socials/email.svg" alt="email"><p>coordination@jeec.ist</p></a>
     </div>
 
   </footer>

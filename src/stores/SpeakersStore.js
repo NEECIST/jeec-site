@@ -8,8 +8,8 @@ export const useSpeakersStore = defineStore("SpeakersStore", {
     };
   },
   actions: {
-    fill(eventid) {
-      if (eventid==undefined) {
+    fill(eventId) {
+      if (eventId == undefined) {
         axios
           .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/speakers_vue", {
             auth: {
@@ -26,15 +26,19 @@ export const useSpeakersStore = defineStore("SpeakersStore", {
               }
             }
           });
-      }
-      else {
+      } else {
         axios
-          .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/speakers_vue?event_id="+eventid, {
-            auth: {
-              username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-              password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-            },
-          })
+          .get(
+            process.env.VUE_APP_JEEC_WEBSITE_API_URL +
+              "/speakers_vue?event_id=" +
+              eventId,
+            {
+              auth: {
+                username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+                password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
+              },
+            }
+          )
           .then((response) => {
             let all_speakers = response.data["data"];
             this.speakers = [];
@@ -45,8 +49,6 @@ export const useSpeakersStore = defineStore("SpeakersStore", {
             }
           });
       }
-
-
     },
   },
 });
