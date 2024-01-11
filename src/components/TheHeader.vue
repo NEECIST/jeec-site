@@ -4,49 +4,18 @@
       <router-link id="header__logo" to="/">
         <img class="classfied" src="@/assets/jeec-logo-dark.svg" alt="JEEC Logo">
       </router-link>
-
-
-      <!-- <div class="left" style="margin-left: 30px;">
-        <div class="sub_section-title">Events</div>
-        <form class="col s12" id="event_form" method="get">
-          <select v-model="selected_event_id" @change="EventSetter(selected_event_id)" name="event" id="event" class="form-control" style="width: 200px; display: block;" required>
-            <option value="" disabled></option> -->
-            <!-- <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
-          </select>
-        </form>
-      </div> -->
-  
       <div class="header__right">
-        
         <div class="nav__links">
-          <router-link v-if="event_id==event_default_id" to="schedule">Schedule</router-link>
+          <!-- <router-link v-if="event_id==event_default_id" to="schedule">Schedule</router-link> -->
           <router-link to="partners">Partners</router-link>
           <router-link v-if="event_id==event_default_id" to="sponsors">Sponsors</router-link>
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
-          <!-- <button v-for="_event in events" :key="_event.id" :value="_event.external_id" class="events" @click="EventSetter(_event.id)">{{ _event.name }}</button> -->
-          
-          <!-- <EventHamburguer></EventHamburguer>
-          <EventCollapsable></EventCollapsable> -->
-
-          <!-- <div class="left" style="margin-left: 30px;">
-            <div class="sub_section-title">Events</div>
-              <form class="col s12" id="event_form" method="get"> -->
-                <!-- <select v-model="selected_event_id" @change="EventSetter(selected_event_id)" name="event" id="event" class="select" style="width: 200px; display: block;" required>
-                  <option v-for="_event in events" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option>
-                </select> -->
-              <!-- </form>
-          </div> -->
-                                        
-          <EventDropdown class="events" :event=events></EventDropdown>
-
+          <EventDropdown></EventDropdown>
         </div>
-        
-      
-
         <WebAppButton></WebAppButton>
         <NavHamburguer></NavHamburguer>
-        <NavCollapsable :event=events :id=event_id></NavCollapsable>
+        <NavCollapsable></NavCollapsable>
       </div>
     </nav>
   </header>
@@ -56,83 +25,16 @@
 import NavHamburguer from '@/components/NavHamburguer.vue';
 import WebAppButton from '@/components/WebAppButton.vue';
 import NavCollapsable from '@/components/NavCollapsable.vue';
-import { useEventStore } from '@/stores/EventStore'
-import axios from "axios";
-import { mapWritableState, mapActions} from 'pinia'
-import { usePartnersStore } from '@/stores/PartnersStore'
-import { useTeamStore } from '@/stores/TeamStore'
-import { useSpeakersStore } from '@/stores/SpeakersStore';
 import EventDropdown from './EventDropdown.vue';
 
+import { mapState } from 'pinia';
+import { useEventStore } from '@/stores/EventStore';
 
 export default {
-  
   components: { NavHamburguer, WebAppButton, NavCollapsable, EventDropdown},
-  data() {
-    return {
-      selected_event_id: '',
-      events: [],
-      event: {},
-      event_default: {},
-      event_default_id: ''
-      
-    }
-  }, 
-  methods: {
-    ...mapActions(usePartnersStore, { updatePartners: 'fill' }),
-    ...mapActions(useSpeakersStore, { updateSpeakers: 'fill' }),
-    ...mapActions(useTeamStore, { updateTeam: 'fill' }),
-    
-    EventSetter(id) {
-        this.event_id = id;
-        this.updateSpeakers(id);
-        this.updatePartners(id);
-        this.updateTeam(id);
-    } 
-    
-
-    
-  },
   computed: {
-    ...mapWritableState(useEventStore, ['event_id']),
-    
-  },
-    mounted() {
-    console.log(this.event_id)
-    axios
-      .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/event_vue", {
-        auth: {
-          username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-          password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-        },
-      })
-      .then((response) => {
-        (this.event_default_id = response.data.event_id)
-        this.event_id = this.event_default_id,
-        this.loaded = true},
-        );
-
-    console.log(this.selected_event_id)
-
-
-    axios
-      .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/events/vue", {
-        auth: {
-          username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-          password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-        },
-      })
-      .then((response) => {
-        (this.events = response.data.events)
-        });
-
-      console.log(this.event)
-      
-      console.log(this.events)
-  },
-  
-
-
+    ...mapState(useEventStore, ['event_id', 'event_default_id']),
+  }
 }
 </script>
 

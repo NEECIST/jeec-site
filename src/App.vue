@@ -10,7 +10,7 @@
 <script>
   import TheHeader from '@/components/TheHeader.vue' 
   import TheFooter from '@/components/TheFooter.vue'
-  import PrefetchLazy from '@/components/PrefetchLazy.vue';
+  import PrefetchLazy from '@/PrefetchLazy.vue';
 
   export default({
     components: { 

@@ -1,16 +1,11 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { useEventStore } from '@/stores/EventStore';
-import { mapWritableState } from 'pinia'
 
 export const useSpeakersStore = defineStore("SpeakersStore", {
   state: () => {
     return {
       speakers: [],
     };
-  },
-  computed: {
-    ...mapWritableState(useEventStore, ['event_id'])
   },
   actions: {
     fill(eventid) {
@@ -24,6 +19,7 @@ export const useSpeakersStore = defineStore("SpeakersStore", {
           })
           .then((response) => {
             let all_speakers = response.data["data"];
+            this.speakers = [];
             for (let i = 0; i < all_speakers.length; i++) {
               if (all_speakers[i].image && all_speakers[i].company_logo) {
                 this.speakers.push(all_speakers[i]);
@@ -41,6 +37,7 @@ export const useSpeakersStore = defineStore("SpeakersStore", {
           })
           .then((response) => {
             let all_speakers = response.data["data"];
+            this.speakers = [];
             for (let i = 0; i < all_speakers.length; i++) {
               if (all_speakers[i].image && all_speakers[i].company_logo) {
                 this.speakers.push(all_speakers[i]);

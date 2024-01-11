@@ -115,8 +115,6 @@ export default {
     }, carouselPrev() {
       this.$refs.carousel.prev()
     }
-  }, mounted() {
-    console.log(this.speakers)
   },
 }
 </script>

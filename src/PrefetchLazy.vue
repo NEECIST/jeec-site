@@ -9,12 +9,8 @@
 </template>
 
 <script>
-import { mapActions } from 'pinia'
-import { useScheduleStore } from '@/stores/ScheduleStore'
-import { useSpeakersStore } from '@/stores/SpeakersStore'
-import { usePartnersStore } from '@/stores/PartnersStore'
-import { useSponsorsStore } from '@/stores/SponsorsStore'
-import { useTeamStore } from '@/stores/TeamStore'
+import { mapState, mapActions } from 'pinia'
+import { useEventStore } from "@/stores/EventStore";
 import Schedule from '@/pages/Schedule.vue'
 import Speakers from '@/pages/Speakers.vue'
 import Partners from '@/pages/Partners.vue'
@@ -24,22 +20,21 @@ import Team from '@/pages/Team.vue'
 export default {
   components: { Schedule, Speakers, Partners, Sponsors, Team },
   methods: {
-    ...mapActions(useScheduleStore, { scheduleFill: 'fill' }),
-    ...mapActions(useSpeakersStore, { speakersFill: 'fill' }),
-    ...mapActions(usePartnersStore, { partnersFill: 'fill' }),
-    ...mapActions(useSponsorsStore, { sponsorsFill: 'fill'}),
-    ...mapActions(useTeamStore, { teamFill: 'fill' }),
+    ...mapActions(useEventStore, ['setEvent', 'fill']),
+  },
+  computed: {
+    ...mapState(useEventStore, ['event_default_id'])
   },
   mounted() {
-    this.scheduleFill()
-    this.speakersFill()
-    this.partnersFill()
-    // this.sponsorsFill()
-    this.teamFill()
+    this.fill()
+    
+    setTimeout(() => {
+      this.setEvent(this.event_default_id)
+    }, 1000);
 
     setTimeout(() => {
       document.getElementById("prefetch").innerHTML = ""
-    }, 2000)
+    }, 3000)
   },
 }
 </script>

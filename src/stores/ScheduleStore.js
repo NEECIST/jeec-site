@@ -1,7 +1,5 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { useEventStore } from '@/stores/EventStore';
-import { mapWritableState } from 'pinia'
 
 export const useScheduleStore = defineStore("ScheduleStore", {
   state: () => {
@@ -14,9 +12,6 @@ export const useScheduleStore = defineStore("ScheduleStore", {
         friday: [{isShowing: false}, []],
       },
     };
-  },
-  computed: {
-    ...mapWritableState(useEventStore, ['event_id'])
   },
   actions: {
     fill() {

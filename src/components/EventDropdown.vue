@@ -4,51 +4,29 @@
       <template v-if="isOpen">
         <div class="sub-menu" :class="{active : isOpen}">
   
-          <template v-for="_event in event" :key="_event.id">
-            <button @click="EventSetter(_event.external_id)">{{ _event.name }}</button>
+          <template v-for="_event in events" :key="_event.id">
+            <button @click="setEvent(_event.external_id)">{{ _event.name }}</button>
           </template>
         </div>
       </template>
     </button>
 </template>
 
-
-
 <script>
-
-import { mapWritableState, mapActions} from 'pinia'
-import { usePartnersStore } from '@/stores/PartnersStore'
-import { useTeamStore } from '@/stores/TeamStore'
-import { useSpeakersStore } from '@/stores/SpeakersStore';
+import { mapState, mapActions } from 'pinia'
 import { useEventStore } from '@/stores/EventStore'
 
 export default {
-  name: 'eventdropdown',
-  props: ["event"],
   data () {
     return {
       isOpen: false
     }
   },
   methods: {
-    ...mapActions(usePartnersStore, { updatePartners: 'fill' }),
-    ...mapActions(useSpeakersStore, { updateSpeakers: 'fill' }),
-    ...mapActions(useTeamStore, { updateTeam: 'fill' }),
-    
-    EventSetter(id) {
-        this.event_id = id;
-        this.updateSpeakers(id);
-        this.updatePartners(id);
-        this.updateTeam(id);
-        console.log(id);
-    } 
-    
-
-    
+    ...mapActions(useEventStore, ['setEvent']),
   },
   computed: {
-    ...mapWritableState(useEventStore, ['event_id']),
-    
+    ...mapState(useEventStore, ['events']),
   },
 }
 </script>

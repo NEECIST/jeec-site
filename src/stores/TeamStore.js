@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia';
 import axios from "axios";
-import { useEventStore } from '@/stores/EventStore';
-import { mapWritableState } from 'pinia'
 
 export const useTeamStore = defineStore('TeamStore', {
   state: () => {
@@ -30,10 +28,10 @@ export const useTeamStore = defineStore('TeamStore', {
       teamImages: {}
     }
   },
-  computed: {
-    ...mapWritableState(useEventStore, ['event_id'])
-  },
   actions: {
+    test() {
+      console.log("Hi from team store via event store")
+    },
     fill(eventid) {
       if (eventid==undefined) {
         axios
@@ -45,9 +43,7 @@ export const useTeamStore = defineStore('TeamStore', {
           
         })
         .then(response => (
-        console.log(response.data['data']),
-        this.teamImages = response.data['data'],
-        console.log("1")
+        this.teamImages = response.data['data']
         ));
 
         axios
@@ -58,9 +54,7 @@ export const useTeamStore = defineStore('TeamStore', {
           },
         })
         .then(response => (
-        console.log(response.data['team_images']),
-        this.formatTeamName(response.data['team_images']),
-        console.log("2")
+        this.formatTeamName(response.data['team_images'])
         ));
       }
       else {
@@ -73,9 +67,7 @@ export const useTeamStore = defineStore('TeamStore', {
           
         })
         .then(response => (
-          console.log(response.data['data']),
-          this.formatTeamName(response.data['data']),
-          console.log("3")
+          this.formatTeamName(response.data['data'])
           ));
 
           axios
@@ -86,16 +78,34 @@ export const useTeamStore = defineStore('TeamStore', {
             },
           })
           .then(response => (
-            console.log(response.data['team_images']),
-            this.formatTeamName(response.data['team_images']),
-            console.log("4")
+            this.formatTeamName(response.data['team_images'])
             ));
             
       }
     },
 
     formatTeamName(arr) {
-      console.log(arr)
+      this.teams = {
+        coordination: {
+          members: { data: []}
+        },
+        webdev: {
+          members: { data: []}
+        },
+        marketing: {
+          members: { data: []}
+        },
+        business: {
+          members: { data: []}
+        },
+        logistics: {
+          members: { data: []}
+        },
+        speakers: {
+          members: { data: []}
+        },
+      } // dar reset nas teams sempre que se dá fill para n haver dups
+
       arr.forEach(element => {
         const teamName = element.name
         this.teams[teamName] = element

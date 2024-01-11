@@ -9,22 +9,18 @@
     <div @click="EventSet = true" v-if="!EventSet">Events</div>
     <!-- <option v-for="_event in event" :key="_event.id" :value="_event.external_id">{{ _event.name }}</option> -->
 
-    <div  v-if="EventSet" v-for="_event in event" :key="_event.id" class="menu-item">
+    <!-- <div  v-if="EventSet" v-for="_event in event" :key="_event.id" class="menu-item">
           <div class="button" @click="EventSetter(_event.external_id)">{{ _event.name }}</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-
-import { mapWritableState, mapActions} from 'pinia'
-import { usePartnersStore } from '@/stores/PartnersStore'
-import { useTeamStore } from '@/stores/TeamStore'
-import { useSpeakersStore } from '@/stores/SpeakersStore';
-import { useEventStore } from '@/stores/EventStore'
-
-import { defineProps } from 'vue';
 import WebAppButton from './WebAppButton.vue';
+
+import { useEventStore } from "@/stores/EventStore";
+import { mapState, mapWritableState } from "pinia";
+
 
 export default {
   components: {WebAppButton, },
@@ -33,27 +29,22 @@ export default {
       EventSet: false
     }
   },
-  props: ["event"],
-  methods: {
-    ...mapActions(usePartnersStore, { updatePartners: 'fill' }),
-    ...mapActions(useSpeakersStore, { updateSpeakers: 'fill' }),
-    ...mapActions(useTeamStore, { updateTeam: 'fill' }),
+  // methods: {
+  //   ...mapActions(usePartnersStore, { updatePartners: 'fill' }),
+  //   ...mapActions(useSpeakersStore, { updateSpeakers: 'fill' }),
+  //   ...mapActions(useTeamStore, { updateTeam: 'fill' }),
     
-    EventSetter(id) {
-        this.event_id = id;
-        this.updateSpeakers(id);
-        this.updatePartners(id);
-        this.updateTeam(id);
-        this.EventSet = false;
-    } 
-    
-
-    
-  },
-  computed: {
-    ...mapWritableState(useEventStore, ['event_id']),
-    
-  },
+  //   EventSetter(id) {
+  //       this.event_id = id;
+  //       this.updateSpeakers(id);
+  //       this.updatePartners(id);
+  //       this.updateTeam(id);
+  //       this.EventSet = false;
+  //   }
+  // },
+  // computed: {
+  //   ...mapWritableState(useEventStore, ['event_id']),
+  // },
 }
 
 

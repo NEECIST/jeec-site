@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia';
 import axios from "axios";
-import { useEventStore } from '@/stores/EventStore';
-import { mapWritableState } from 'pinia'
 
 export const usePartnersStore = defineStore('PartnersStore', {
   state: () => {
@@ -15,9 +13,6 @@ export const usePartnersStore = defineStore('PartnersStore', {
         bronze: {},
       }
     }
-  },
-  computed: {
-    ...mapWritableState(useEventStore, ['event_id'])
   },
   actions: {
     fill (eventid){
@@ -37,7 +32,7 @@ export const usePartnersStore = defineStore('PartnersStore', {
           password: process.env.VUE_APP_JEEC_WEBSITE_KEY
         },
       })
-      .then(response => (this.partners.gold = response.data['data']));
+      .then(response => (this.partners.silver = response.data['data']));
       axios
       .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/companies_vue?partnership_tier=bronze', {
         auth: {
@@ -45,7 +40,7 @@ export const usePartnersStore = defineStore('PartnersStore', {
           password: process.env.VUE_APP_JEEC_WEBSITE_KEY
         },
       })
-      .then(response => (this.partners.gold = response.data['data']));
+      .then(response => (this.partners.bronze = response.data['data']));
       }
       else{
         axios
