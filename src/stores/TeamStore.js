@@ -45,7 +45,10 @@ export const useTeamStore = defineStore('TeamStore', {
           
         })
         .then(response => (
-        this.teamImages = response.data['data']));
+        console.log(response.data['data']),
+        this.teamImages = response.data['data'],
+        console.log("1")
+        ));
 
         axios
         .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/teams_image?event_id=default', {
@@ -55,7 +58,10 @@ export const useTeamStore = defineStore('TeamStore', {
           },
         })
         .then(response => (
-        this.formatTeamName(response.data['data'])));
+        console.log(response.data['team_images']),
+        this.formatTeamName(response.data['team_images']),
+        console.log("2")
+        ));
       }
       else {
         axios
@@ -68,7 +74,9 @@ export const useTeamStore = defineStore('TeamStore', {
         })
         .then(response => (
           console.log(response.data['data']),
-          this.formatTeamName(response.data['data'])));
+          this.formatTeamName(response.data['data']),
+          console.log("3")
+          ));
 
           axios
           .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + '/teams_image?event_id='+eventid, {
@@ -78,13 +86,18 @@ export const useTeamStore = defineStore('TeamStore', {
             },
           })
           .then(response => (
-            this.formatTeamName(response.data['data'])));
+            console.log(response.data['team_images']),
+            this.formatTeamName(response.data['team_images']),
+            console.log("4")
+            ));
+            
       }
     },
 
     formatTeamName(arr) {
+      console.log(arr)
       arr.forEach(element => {
-        const teamName = this.formatString(element.name)
+        const teamName = element.name
         this.teams[teamName] = element
       });
     },

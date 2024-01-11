@@ -1,7 +1,7 @@
 <template>
   <div class="team__section" :id="this.teamId">
     <div class="team__header">
-      <img class="team__group-image" :src="team.team_image != null ? jeec_api_url + team.team_image : require('@/assets/team/teamgroupimage.png')" :alt="team.name + ' group image'">
+      <img class="team__group-image" :src="team.team_image != null ? jeec_api_url + team.team_image : require('@/assets/team/teamgroupimage.png')" :alt="team.name">
       <h2 class="team__title"> {{ team.name.replace(/\s/g, '') }}</h2>
       <div class="team__line">
         <span></span>
