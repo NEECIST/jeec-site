@@ -8,8 +8,8 @@
         <div class="nav__links">
           <!-- <router-link v-if="event_id==event_default_id" to="schedule">Schedule</router-link> -->
           <router-link to="partners">Partners</router-link>
-          <router-link v-if="event_id==event_default_id" to="sponsors">Sponsors</router-link>
-          <router-link to="speakers">Speakers</router-link>
+          <!-- <router-link v-if="event_id!=event_default_id" to="sponsors">Sponsors</router-link> -->
+          <router-link v-if="event_id == jeec23_id" to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
           <EventDropdown></EventDropdown>
         </div>
@@ -33,7 +33,7 @@ import { useEventStore } from '@/stores/EventStore';
 export default {
   components: { NavHamburguer, WebAppButton, NavCollapsable, EventDropdown},
   computed: {
-    ...mapState(useEventStore, ['event_id', 'event_default_id']),
+    ...mapState(useEventStore, ['event_id', 'event_default_id', 'jeec23_id']),
   }
 }
 </script>

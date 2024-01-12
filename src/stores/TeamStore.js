@@ -25,71 +25,25 @@ export const useTeamStore = defineStore("TeamStore", {
           members: { data: [] },
         },
       },
-      teamImages: {},
     };
   },
   actions: {
-    test() {
-      console.log("Hi from team store via event store");
-    },
     fill(eventId) {
-      if (eventId == undefined) {
-        axios
-          .get(process.env.VUE_APP_JEEC_WEBSITE_API_URL + "/teams_new", {
+      axios
+        .get(
+          process.env.VUE_APP_JEEC_WEBSITE_API_URL +
+            "/teams_new?event_id=" + eventId,
+          {
             auth: {
               username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
               password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
             },
-          })
-          .then((response) => (this.teamImages = response.data["data"]));
-
-        axios
-          .get(
-            process.env.VUE_APP_JEEC_WEBSITE_API_URL +
-              "/teams_image?event_id=default",
-            {
-              auth: {
-                username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-                password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-              },
-            }
-          )
-          .then((response) =>
-            this.formatTeamName(response.data["team_images"]),
-            console.log(response.data["team_images"])
-          );
-      } else {
-        axios
-          .get(
-            process.env.VUE_APP_JEEC_WEBSITE_API_URL +
-              "/teams_new?event_id=" + eventId,
-            {
-              auth: {
-                username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-                password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-              },
-            }
-          )
-          .then((response) => this.formatTeamName(response.data["data"]));
-
-        axios
-          .get(
-            process.env.VUE_APP_JEEC_WEBSITE_API_URL +
-              "/teams_image?event_id=" + eventId,
-            {
-              auth: {
-                username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
-                password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
-              },
-            }
-          )
-          .then((response) =>
-            this.formatTeamName(response.data["team_images"])
-          );
-      }
+          }
+        )
+        .then((response) => this.sort(response.data["data"]));
     },
 
-    formatTeamName(arr) {
+    sort(arr) {
       this.teams = {
         coordination: {
           members: { data: [] },
@@ -114,12 +68,7 @@ export const useTeamStore = defineStore("TeamStore", {
       arr.forEach((element) => {
         const teamName = element.name;
         this.teams[teamName] = element;
-      },
-      );
-    },
-
-    formatString(str) {
-      return str.replace(/\s/g, "").toLowerCase();
+      });
     },
   },
 });

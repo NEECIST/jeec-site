@@ -14,7 +14,7 @@
     </section>
     
     <template v-for="team in this.teams">
-      <section class="page__section"  v-if="team.name != null" :id="team.name.toLowerCase().replace(/\s/g, '') + '_route'">
+      <section class="page__section" v-if="team.name != null" :id="team.name.toLowerCase().replace(/\s/g, '') + '_route'">
         <TeamSection :team="team"></TeamSection>
       </section>
     </template>
@@ -24,13 +24,13 @@
 <script>
 import TeamWheel from '@/components/TeamWheel.vue'
 import TeamSection from '@/components/TeamSection.vue'
-import { mapWritableState } from 'pinia'
+import { mapState } from 'pinia'
 import { useTeamStore } from '@/stores/TeamStore'
 
 export default {
   components: { TeamWheel, TeamSection, },
   computed: {
-    ...mapWritableState(useTeamStore, ['teams'])
+    ...mapState(useTeamStore, ['teams']),
   },
 }
 </script>

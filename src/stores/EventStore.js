@@ -11,6 +11,8 @@ export const useEventStore = defineStore("EventStore", {
       events: [],
       event_id: "",
       event_default_id: "",
+      jeec23_id: "b2f8ac66-3555-4276-b267-306c995acc1b",
+      jeec24_id: "218d4aea-92a6-4611-b6ff-287e09bf3fcb",
     };
   },
   actions: {
@@ -34,10 +36,12 @@ export const useEventStore = defineStore("EventStore", {
           },
         })
         .then((response) => {
-          this.events = response.data.events
+          this.events = response.data.events,
+          console.log(this.events)
         });
     },
     setEvent(eventId) {
+  
       this.event_id = eventId;
 
       const teamStore = useTeamStore();

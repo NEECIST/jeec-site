@@ -1,7 +1,7 @@
 <template>
   <div class="company__section">
     <div class="tier__title">
-      <div class="tier">
+      <div v-if="tier != ''" class="tier">
         <svg>
           <defs>
             <mask :id="'companies__mask__' + tier" x="0" y="0" width="100%" height="100%">

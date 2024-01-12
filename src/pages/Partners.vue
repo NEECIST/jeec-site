@@ -11,17 +11,22 @@
     <section class="page__section">
       <CompanyTier type="Partners" tier="bronze" :companies="partners.bronze"></CompanyTier>
     </section>
+    <section class="page__section">
+      <CompanyTier type="Sponsors" tier="" :companies="sponsors.platinum"></CompanyTier>
+    </section>
   </div>
 </template>
 <script>
 import CompanyTier from "@/components/CompanyTier.vue"
-import { mapWritableState } from 'pinia'
+import { mapState } from 'pinia'
 import { usePartnersStore } from '@/stores/PartnersStore'
+import { useSponsorsStore } from '@/stores/SponsorsStore'
 
 export default {
   components: { CompanyTier, },
   computed: {
-    ...mapWritableState(usePartnersStore, ['partners'])
+    ...mapState(usePartnersStore, ['partners']),
+    ...mapState(useSponsorsStore, ['sponsors'])
   }
 }
 </script>

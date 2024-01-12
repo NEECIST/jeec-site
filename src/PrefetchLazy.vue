@@ -30,11 +30,11 @@ export default {
     
     setTimeout(() => {
       this.setEvent(this.event_default_id)
-    }, 1000);
+    }, 2000);
 
     setTimeout(() => {
       document.getElementById("prefetch").innerHTML = ""
-    }, 3000)
+    }, 4000)
   },
 }
 </script>

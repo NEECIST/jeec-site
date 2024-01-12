@@ -3,14 +3,15 @@
     <WebAppButton></WebAppButton>
     <!-- <router-link to="schedule" v-if="!EventSet">Schedule</router-link> -->
     <router-link to="partners" v-if="!EventSet">Partners</router-link>
-    <router-link to="sponsors" v-if="!EventSet">Sponsors</router-link>
-    <router-link to="speakers" v-if="!EventSet">Speakers</router-link>
+    <!-- <router-link  to="sponsors" v-if="!EventSet && event_id == jeec23_id">Sponsors</router-link> -->
+    <router-link to="speakers" v-if="!EventSet && event_id == jeec23_id">Speakers</router-link>
     <router-link to="team" v-if="!EventSet">Team</router-link>
     <div @click="EventSet = true" v-if="!EventSet">Events</div>
-
-    <div  v-if="EventSet" v-for="_event in events" :key="_event.id" class="menu-item">
-          <div class="button" @click="eventClick(_event.external_id)">{{ _event.name }}</div>
-    </div>
+    <template v-if="EventSet">
+      <div v-for="_event in events" :key="_event.id" class="menu-item">
+            <div class="button" @click="eventClick(_event.external_id)">{{ _event.name }}</div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -40,8 +41,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(useEventStore, ['events'])
-  }
+    ...mapState(useEventStore, ['events', 'event_id', 'jeec23_id'])
+  },
 }
 </script>
 
