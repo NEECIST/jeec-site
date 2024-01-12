@@ -55,7 +55,8 @@ export const useTeamStore = defineStore("TeamStore", {
             }
           )
           .then((response) =>
-            this.formatTeamName(response.data["team_images"])
+            this.formatTeamName(response.data["team_images"]),
+            console.log(response.data["team_images"])
           );
       } else {
         axios
@@ -113,7 +114,8 @@ export const useTeamStore = defineStore("TeamStore", {
       arr.forEach((element) => {
         const teamName = element.name;
         this.teams[teamName] = element;
-      });
+      },
+      );
     },
 
     formatString(str) {

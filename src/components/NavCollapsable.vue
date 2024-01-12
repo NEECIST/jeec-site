@@ -35,6 +35,7 @@ export default {
       this.EventSet = false
       // console.log(eventId)
       this.setEvent(eventId)
+      this.$router.push('/')
       // console.log(this.event_id)
     }
   },

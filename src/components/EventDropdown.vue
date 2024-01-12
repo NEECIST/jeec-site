@@ -5,7 +5,10 @@
         <div class="sub-menu" :class="{active : isOpen}">
   
           <template v-for="_event in events" :key="_event.id">
-            <button @click="setEvent(_event.external_id)">{{ _event.name }}</button>
+            <router-link id="header__logo" to="/">
+              <button @click="setEvent(_event.external_id)">{{ _event.name }}</button>
+            </router-link>
+            
           </template>
         </div>
       </template>

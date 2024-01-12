@@ -16,7 +16,7 @@ export const usePartnersStore = defineStore("PartnersStore", {
   actions: {
     fill(eventId) {
       if (eventId == undefined) {
-        console.log(eventId)
+        // console.log(eventId)
         axios
           .get(
             process.env.VUE_APP_JEEC_WEBSITE_API_URL +
@@ -66,7 +66,7 @@ export const usePartnersStore = defineStore("PartnersStore", {
         //   )
         //   .then((response) => (this.partners.bronze = response.data["data"]));
       } else {
-        console.log(eventId)
+        // console.log(eventId)
          axios
          
           .get(

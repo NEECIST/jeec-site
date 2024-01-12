@@ -47,6 +47,9 @@ export const useEventStore = defineStore("EventStore", {
       teamStore.fill(eventId);
       partnersStore.fill(eventId);
       speakersStore.fill(eventId);
+
+      
+
     }
   },
 });
