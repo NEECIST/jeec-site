@@ -1,6 +1,6 @@
 <template>
   <div class="nav__collapsable">
-    <WebAppButton></WebAppButton>
+    <!-- <WebAppButton></WebAppButton> -->
     <!-- <router-link to="schedule" v-if="!EventSet">Schedule</router-link> -->
     <router-link to="partners" v-if="!EventSet">Partners</router-link>
     <!-- <router-link  to="sponsors" v-if="!EventSet && event_id == jeec23_id">Sponsors</router-link> -->
@@ -23,7 +23,7 @@ import { mapState, mapActions } from "pinia";
 
 
 export default {
-  components: {WebAppButton, },
+  components: { WebAppButton, },
   data () {
     return {
       EventSet: false

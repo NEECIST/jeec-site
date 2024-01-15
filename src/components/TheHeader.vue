@@ -13,7 +13,7 @@
           <router-link to="team">Team</router-link>
           <EventDropdown></EventDropdown>
         </div>
-        <WebAppButton></WebAppButton>
+        <!-- <WebAppButton></WebAppButton> -->
         <NavHamburguer></NavHamburguer>
         <NavCollapsable></NavCollapsable>
       </div>
