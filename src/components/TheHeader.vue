@@ -158,6 +158,7 @@ nav {
 @media screen and (max-width: 1007px){
   .header__right{
     width: 260px;
+    justify-content: end;
   }
   .nav__toggle {
     position: relative;
@@ -170,9 +171,6 @@ nav {
 }
 
 @media screen and (max-width: 640px) {
-  .header__right {
-    justify-content: end;
-  }
   .webapp-btn {
     position: absolute;
     display: none;
