@@ -32,22 +32,25 @@ const routes = [
     name: "speakers",
     component: () => import("@/pages/Speakers.vue"),
   },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/",
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    if (to.hash) {
-      return {
-        el: to.hash,
-        top: 10,
-        behavior: 'smooth',
+    return new Promise((resolve, reject) => {
+      if (to.hash) {
+        resolve({ el: to.hash, top: 0, behavior: "smooth" });
+      } else if (savedPosition) {
+        resolve({ top: savedPosition.top });
+      } else {
+        resolve({ left: 0, top: 0 });
       }
-    } 
-    else {
-      return { top: 0 }
-    }
+    });
   },
 });
 
