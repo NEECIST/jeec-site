@@ -125,6 +125,7 @@ export default {
   font-family: 'Russo One';
   font-size: 1.5rem;
   padding: 0 0ch;
+  text-transform: uppercase;
 }
 .gradient.active > h3 {
   padding: 0 1ch;
