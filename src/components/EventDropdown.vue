@@ -5,9 +5,9 @@
         <div class="sub-menu" :class="{active : isOpen}">
   
           <template v-for="_event in events" :key="_event.id">
-            <router-link id="header__logo" to="/">
+            <!-- <router-link id="header__logo" to="/"> -->
               <button @click="setEvent(_event.external_id)">{{ _event.name }}</button>
-            </router-link>
+            <!-- </router-link> -->
             
           </template>
         </div>
@@ -71,6 +71,7 @@ export default {
 
 .sub-menu button:hover {
   background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
 }
 
 

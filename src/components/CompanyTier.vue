@@ -18,7 +18,7 @@
       </div>
       <h2>{{ type }}</h2>
     </div>
-    <div class="carousel__border">
+    <div v-if="companies.length > 1" class="carousel__border">
       <div class="carousel__wrapper">
         <carousel :breakpoints="carousel_breakpoints" :autoplay="2000" :wrap-around="true" :transition="500">
           <slide v-for="company in companies" :key="company">
@@ -27,6 +27,17 @@
             </div>
           </slide>
         </carousel>
+      </div>
+    </div>
+    <div v-else class="carousel__border">
+      <div class="carousel__wrapper">
+
+          <slide v-for="company in companies" :key="company">
+            <div class="carousel__item">
+              <img class="company__logo_solo" :src="jeec_api_url + company.logo" :alt="company.name">
+            </div>
+          </slide>
+
       </div>
     </div>
   </div>
@@ -225,6 +236,11 @@ export default {
 .company__logo {
   width: 90%;
   height: 90%;
+  object-fit: contain;
+}
+.company__logo_solo {
+  width: 70%;
+  height: 70%;
   object-fit: contain;
 }
 
