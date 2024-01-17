@@ -118,10 +118,6 @@ export default {
   right: 0;
   background: linear-gradient(to top, #4ccaf000, #4ccaf0 25%, #F72585 75%, #F7258500 100%);
 }
-.gradient.active .gradient__content:is(h3) {
-  padding: 0 1ch;
-  transition: all 1.3s ease-in;
-}
 .gradient > h3 {
   position: absolute;
   top: 50%;
@@ -130,7 +126,12 @@ export default {
   font-size: 1.5rem;
   padding: 0 0ch;
 }
+.gradient.active > h3 {
+  padding: 0 1ch;
+  transition: padding 1.3s ease-in;
+}
 .gradient-left > h3 {
+  
   right: 0;
 }
 .gradient-right > h3 {
@@ -181,26 +182,12 @@ export default {
 @media screen and (max-width: 640px) {
   .gradient > h3 {
     font-size: 1.5rem;
-    top: 50%;
+    text-orientation: upright;
+    writing-mode: vertical-rl;
   }
 
-  .gradient-left > h3 {
-    transform: rotate(-90deg) translateX(50%);
-    transform-origin: bottom right;
-    right: 0;
-  }
-  .gradient-right > h3 {
-    transform: rotate(90deg) translateX(-50%);
-    transform-origin: bottom left;
-    left: 0;
-  }
-
-  .gradient.active.gradient-left > h3 {
-    right: 2rem;
-  }
-
-  .gradient.active.gradient-right > h3 {
-    left: 2rem;
+  .gradient.active > h3 {
+    padding: 0 0.7ch;
   }
 
   .content__extremes {
