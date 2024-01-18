@@ -1,5 +1,5 @@
 <template>
-  <div id="prefetch" aria-hidden="true">
+  <div v-if="active" id="prefetch" aria-hidden="true">
     <Team></Team>
     <Partners></Partners>
     <Sponsors></Sponsors>
@@ -19,6 +19,11 @@ import Team from '@/pages/Team.vue'
 
 export default {
   components: { Schedule, Speakers, Partners, Sponsors, Team },
+  data() {
+    return {
+      active: true,
+    }
+  },
   methods: {
     ...mapActions(useEventStore, ['setEvent', 'fill']),
   },
@@ -33,7 +38,7 @@ export default {
     }, 2000);
 
     setTimeout(() => {
-      document.getElementById("prefetch").innerHTML = ""
+      this.active = false
     }, 4000)
   },
 }
