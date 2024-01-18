@@ -37,18 +37,25 @@ export default {
     return {
       wheelBaseWidth: 572,
       wheelScaleFactor: 1,
+      timer: null,
     }
   },
   methods: {
     onResize() {
       let currentWidth = this.$refs.team__wheel.offsetWidth
-
       this.wheelScaleFactor = (currentWidth / this.wheelBaseWidth)
-    }
+    },
   },
   mounted() {
     window.addEventListener("resize", this.onResize)
     this.onResize()
+
+    this.timer = setInterval(() => {
+      this.onResize()
+    }, 1500);
+  },
+  beforeUnmount() {
+    clearInterval(this.timer)
   },
   unmounted() {
     window.removeEventListener("resize", this.onResize)
