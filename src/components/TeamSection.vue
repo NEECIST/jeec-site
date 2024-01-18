@@ -36,7 +36,7 @@
                 <img v-if="member.image != null" :src="jeec_api_url + member.image">
                 <img v-else id="jeec-logo" src="">
               </div>
-              <a :href="member.linkedin_url" class="member__social">
+              <a target="_blank" :href="member.linkedin_url" class="member__social">
                 <img class="icon-team-member" src="@/assets/socials/linkedin-logo.svg" />
               </a>
             </div>
