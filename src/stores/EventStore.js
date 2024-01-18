@@ -36,8 +36,7 @@ export const useEventStore = defineStore("EventStore", {
           },
         })
         .then((response) => {
-          this.events = response.data.events,
-          console.log(this.events)
+          this.events = response.data.events
         });
     },
     setEvent(eventId) {

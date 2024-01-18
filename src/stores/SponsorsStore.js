@@ -36,7 +36,6 @@ export const useSponsorsStore = defineStore("SponsorsStore", {
       this.sponsors.bronze = []
       arr.forEach((element) => {
         // this.sponsors.platinum.push(element)
-        console.log(element)
         if(element.partnership_tier == "sponsor_platinum"){this.sponsors.platinum.push(element)}
         if(element.partnership_tier == "sponsor_gold"){this.sponsors.platinum.push(element)}
         if(element.partnership_tier == "sponsor_silver"){this.sponsors.platinum.push(element)}
