@@ -1,12 +1,14 @@
 <template>
   <div>
     <h1 class="page__title">PARTNERS</h1>
-    <p class="page__description">Get to know our amazing partners present during the week, be it with a stand at the job fair or with a soft-skills workshop!</p>
-    <div v-if="partners.main_sponsor.length"> 
+    <p class="page__description">Get to know our amazing partners present during the week, be it with a stand at the job
+      fair or with a soft-skills workshop!</p>
+
+    <template v-if="partners.main_sponsor.length">
       <section class="page__section">
         <CompanyTier type="Main Sponsor" tier="" :companies="partners.main_sponsor"></CompanyTier>
       </section>
-    </div>
+    </template>
 
     <section class="page__section">
       <CompanyTier type="Partners" tier="gold" :companies="partners.gold"></CompanyTier>
@@ -17,11 +19,12 @@
     <section class="page__section">
       <CompanyTier type="Partners" tier="bronze" :companies="partners.bronze"></CompanyTier>
     </section>
-    <div v-if="partners.sponsor_platinum.length"> 
+
+    <template v-if="partners.sponsors.length">
       <section class="page__section">
-        <CompanyTier type="Sponsors" tier="" :companies="partners.sponsor_platinum"></CompanyTier>
+        <CompanyTier type="Sponsors" tier="" :companies="partners.sponsors"></CompanyTier>
       </section>
-    </div>
+    </template>
 
   </div>
 </template>
@@ -36,7 +39,7 @@ export default {
   computed: {
     ...mapState(usePartnersStore, ['partners']),
     ...mapState(useSponsorsStore, ['sponsors'])
-    
+
   }
 }
 </script>

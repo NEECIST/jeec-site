@@ -32,6 +32,11 @@ export default {
   computed: {
     ...mapState(useTeamStore, ['teams']),
   },
+  mounted() {
+    setTimeout(() => {
+      console.log(this.teams)
+    }, 5000);
+  },
 }
 </script>
 

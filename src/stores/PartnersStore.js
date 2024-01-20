@@ -10,7 +10,7 @@ export const usePartnersStore = defineStore("PartnersStore", {
         silver: [],
         bronze: [],
         main_sponsor:[],
-        sponsor_platinum:[],
+        sponsors:[],
       },
     };
   },
@@ -34,14 +34,14 @@ export const usePartnersStore = defineStore("PartnersStore", {
       this.partners.silver = []
       this.partners.bronze = []
       this.partners.main_sponsor = []
-      this.partners.sponsor_platinum = []
+      this.partners.sponsors = []
 
       arr.forEach((element) => {
         if(element.partnership_tier == "partner_gold"){this.partners.gold.push(element)}
         if(element.partnership_tier == "partner_silver"){this.partners.silver.push(element)}
         if(element.partnership_tier == "partner_bronze"){this.partners.bronze.push(element)}
         if(element.partnership_tier == "main_sponsor"){this.partners.main_sponsor.push(element)}
-        if(element.partnership_tier == "sponsor_platinum"){this.partners.sponsor_platinum.push(element)}
+        if(element.partnership_tier == "sponsor_platinum"){this.partners.sponsors.push(element)}
 
       });
     },
