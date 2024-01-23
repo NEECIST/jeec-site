@@ -39,7 +39,6 @@ export default {
   computed: {
     ...mapState(usePartnersStore, ['partners']),
     ...mapState(useSponsorsStore, ['sponsors'])
-
   }
 }
 </script>

@@ -22,22 +22,20 @@
       <div class="carousel__wrapper">
         <carousel :breakpoints="carousel_breakpoints" :autoplay="2000" :wrap-around="true" :transition="500">
           <slide v-for="company in companies" :key="company">
-            <div class="carousel__item">
+            <a target="_blank" :href="company.link ? company.link : 'jeec.ist'" class="carousel__item">
               <img class="company__logo" :src="jeec_api_url + company.logo" :alt="company.name">
-            </div>
+            </a>
           </slide>
         </carousel>
       </div>
     </div>
     <div v-else class="carousel__border">
       <div class="carousel__wrapper">
-
           <slide v-for="company in companies" :key="company">
-            <div class="carousel__item">
+            <a target="_blank" :href="company.link ? company.link : 'jeec.ist'" class="carousel__item">
               <img class="company__logo_solo" :src="jeec_api_url + company.logo" :alt="company.name">
-            </div>
+            </a>
           </slide>
-
       </div>
     </div>
   </div>
