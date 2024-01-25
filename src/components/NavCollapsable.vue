@@ -4,7 +4,7 @@
     <!-- <router-link to="schedule" v-if="!EventSet">Schedule</router-link> -->
     <router-link to="partners" v-if="!EventSet">Partners</router-link>
     <!-- <router-link  to="sponsors" v-if="!EventSet && event_id == jeec23_id">Sponsors</router-link> -->
-    <router-link to="speakers" v-if="!EventSet && event_id == jeec23_id">Speakers</router-link>
+    <router-link to="speakers" v-if="!EventSet">Speakers</router-link>
     <router-link to="team" v-if="!EventSet">Team</router-link>
     <div @click="EventSet = true" v-if="!EventSet">Events</div>
     <template v-if="EventSet">
