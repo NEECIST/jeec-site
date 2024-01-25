@@ -13,15 +13,19 @@
     <section class="page__section">
       <HomeCompanyStudents></HomeCompanyStudents>
     </section>
+    <section class="page__section">
+      <HomeLocation></HomeLocation>
+    </section>
   </div>
 </template>
 <script>
 import HomeCountdown from "@/components/HomeCountdown.vue";
-import HomeOffers from "@/components/HomeOffers.vue"
+import HomeOffers from "@/components/HomeOffers.vue";
 import HomeCompanyStudents from "@/components/HomeCompanyStudents.vue";
+import HomeLocation from "@/components/HomeLocation.vue";
 
 export default {
-  components: { HomeCountdown, HomeOffers, HomeCompanyStudents, },
+  components: { HomeCountdown, HomeOffers, HomeCompanyStudents, HomeLocation, },
 }
 </script>
 

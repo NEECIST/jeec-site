@@ -64,6 +64,8 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   height: 700px;
 }
 .gradient.active {
