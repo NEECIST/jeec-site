@@ -42,6 +42,9 @@ export const usePartnersStore = defineStore("PartnersStore", {
         if(element.partnership_tier == "partner_bronze"){this.partners.bronze.push(element)}
         if(element.partnership_tier == "main_sponsor"){this.partners.main_sponsor.push(element)}
         if(element.partnership_tier == "sponsor_platinum"){this.partners.sponsors.push(element)}
+        if(element.partnership_tier == "sponsor_gold"){this.partners.sponsors.push(element)}
+        if(element.partnership_tier == "sponsor_silver"){this.partners.sponsors.push(element)}
+        if(element.partnership_tier == "sponsor_bronze"){this.partners.sponsors.push(element)}
 
       });
     },
