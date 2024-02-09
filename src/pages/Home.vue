@@ -2,7 +2,7 @@
   <div>
     <h1 class="visibility-hidden">JEEC</h1>
     <section class="page__section" id="home__coming-soon">
-      <h2>19th TO 23rd FEBRUARY, 2024</h2>
+      <h2>19th to 23rd FEBRUARY, 2024</h2>
       <h2>THE EVENT STARTS SOON!</h2>
       <HomeCountdown></HomeCountdown>
       <p class="home__paragraph home__description">A group of IST students whose main purpose is to organize an event with the intention of closing the gap between the business world and university life.</p>
