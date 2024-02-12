@@ -1,6 +1,6 @@
 <template>
   <div class="nav__collapsable">
-    <!-- <WebAppButton></WebAppButton> -->
+    <WebAppButton class="webapp"></WebAppButton>
     <!-- <router-link to="schedule" v-if="!EventSet">Schedule</router-link> -->
     <router-link to="partners" v-if="!EventSet">Partners</router-link>
     <!-- <router-link  to="sponsors" v-if="!EventSet && event_id == jeec23_id">Sponsors</router-link> -->
@@ -92,6 +92,7 @@ export default {
   background: linear-gradient(230deg, #F72585, #7209B7 90%);
   border: none;
   font-size: 0.9rem;
+  font-family: "Lexend Deca";
   color: white;
   border-radius: 18px;
   cursor: pointer;
@@ -102,6 +103,7 @@ export default {
   left: 20px;
   top: 20px;
   width: auto;
+  margin: 0.2rem 0;
 }
 
 .nav__collapsable > * {
@@ -123,7 +125,7 @@ export default {
   cursor: pointer;
 }
 
-.nav__collapsable > :is(*:hover, *:focus-visible){
+.nav__collapsable > :is(*:hover, *:focus-visible):not(.webapp-btn):hover{
   background: radial-gradient(
     150% 300% at top left,
     rgba(40, 40, 40, 0.35),

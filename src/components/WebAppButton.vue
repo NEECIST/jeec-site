@@ -1,8 +1,18 @@
 <template lang="">
-  <router-link to="speakers" class="webapp-btn">Web App</router-link>
+  <a v-if="toExternal" href="app.jeec.ist" class="webapp-btn external">Sign In</a>
+  <router-link v-else to="/webapp" class="webapp-btn">Web App</router-link>
 </template>
-<script>
-export default {
-  
-}
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  toExternal: {
+    default: false
+  }
+});
 </script>
+
+<style>
+.webapp-btn.external {
+}
+</style>
