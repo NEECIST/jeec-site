@@ -33,6 +33,11 @@ const routes = [
     component: () => import("@/pages/Speakers.vue"),
   },
   {
+    path: "/webapp",
+    name: "webapp",
+    component: () => import("@/pages/Webapp.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     redirect: "/",
   },

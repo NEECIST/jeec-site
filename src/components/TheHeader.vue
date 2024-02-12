@@ -11,6 +11,7 @@
           <!-- <router-link v-if="event_id!=event_default_id" to="sponsors">Sponsors</router-link> -->
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
+          <router-link to="webapp">Webapp</router-link>
           <EventDropdown></EventDropdown>
         </div>
         <!-- <WebAppButton></WebAppButton> -->
