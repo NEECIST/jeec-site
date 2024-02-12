@@ -34,6 +34,7 @@
     max-width:70vw;
     margin-left:auto;
     margin-right:auto;
+    font-size: 1.4rem;
 }
 .join_box{
     background: radial-gradient(135.51% 151.31% at 11.18% 13.47%, rgb(40, 105, 124) 0%, rgb(51, 32, 64) 60.08%, rgb(41, 27, 50) 100%);
@@ -50,6 +51,7 @@
     padding-top:10px;
     padding-bottom:10px;
     margin-bottom:3vh;
+    font-size:50px;
 }
 
 .big-box{
@@ -71,6 +73,7 @@
     border-top-left-radius: 15px;
     padding-top:1vh;
     padding-bottom:1vh;
+    font-size:40px;
 }
 
 .what-box{
@@ -92,10 +95,11 @@
 .box-text{
     padding-top:10px;
     padding-bottom:10px;
-    padding-left:5px;
-    padding-right:5px;
+    padding-left:2vw;
+    padding-right:2vw;
     font-weight:bold;
-    line-height:30px;
+    line-height:50px;
+    font-size: 1.6rem;
 }
 
 .what-text{
