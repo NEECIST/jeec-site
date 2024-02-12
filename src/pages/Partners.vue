@@ -26,6 +26,12 @@
       </section>
     </template>
 
+    <template v-if="partners.research_clubs.length">
+      <section class="page__section">
+        <CompanyTier type="Clubs and Research Institutes" tier="" :companies="partners.research_clubs"></CompanyTier>
+      </section>
+    </template>
+
   </div>
 </template>
 <script>
