@@ -36,11 +36,13 @@ export default {
 
         offer__4: ["Main Speaker", "Listen to the best international speakers of the most prestigious tech companies!"],
 
-        offer__5: ["Fast Meetings", "Learn more about the different Masters available @ Tecnico and the different career choices made by our Alumni!"],
+        offer__5: ["Fast Meetings", "Learn more about the different Masters available @ Tecnico!"],
 
         offer__6: ["Workshops", "Learn more about a specific application or topic developed by a company in an interactive activity, while also developing your hard and soft-skills."],
 
         offer__7: ["15/15", "Get to know more about the top companies present at JEEC and their current projects in the tech industry."],
+
+        offer__8: ["Alumni Talks", "Learn more about the different career choices made by our Alumni!"],
       }
     }
   },
