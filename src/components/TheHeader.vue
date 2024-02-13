@@ -11,10 +11,9 @@
           <!-- <router-link v-if="event_id!=event_default_id" to="sponsors">Sponsors</router-link> -->
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
-          <router-link to="webapp">Webapp</router-link>
           <EventDropdown></EventDropdown>
         </div>
-        <!-- <WebAppButton></WebAppButton> -->
+        <WebAppButton></WebAppButton>
         <NavHamburguer></NavHamburguer>
         <NavCollapsable></NavCollapsable>
       </div>
@@ -172,7 +171,7 @@ nav {
 }
 
 @media screen and (max-width: 640px) {
-  .webapp-btn {
+  header .webapp-btn {
     position: absolute;
     display: none;
   }

@@ -33,7 +33,7 @@ h1, h2 {
   color: var(--clr-dark-font)
 }
 
-p, a, button {
+p, a, button, li {
   font-family: "Lexend Deca", sans-serif;
   color: var(--clr-dark-font);
 }
