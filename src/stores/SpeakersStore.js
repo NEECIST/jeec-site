@@ -4,7 +4,8 @@ import axios from "axios";
 export const useSpeakersStore = defineStore("SpeakersStore", {
   state: () => {
     return {
-      speakers: [],
+      main_speakers: [],
+      other_speakers: [],
     };
   },
   actions: {
@@ -23,10 +24,14 @@ export const useSpeakersStore = defineStore("SpeakersStore", {
         )
         .then((response) => {
           let all_speakers = response.data["data"];
-          this.speakers = [];
+          this.main_speakers = [];
+          this.other_speakers = [];
           for (let i = 0; i < all_speakers.length; i++) {
-            if (all_speakers[i].image && all_speakers[i].company_logo) {
-              this.speakers.push(all_speakers[i]);
+            if (all_speakers[i].image && all_speakers[i].company_logo && all_speakers[i].spotlight) {
+              this.main_speakers.push(all_speakers[i]);
+            }
+            else if(all_speakers[i].image && all_speakers[i].company_logo && !all_speakers[i].spotlight){
+              this.other_speakers.push(all_speakers[i]);
             }
           }
         });

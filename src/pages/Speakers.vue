@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1 class="page__title">Speakers</h1>
+    <h1 class="page__title" style="width:auto">Main Speakers</h1>
     <section class="page__section">
       <div class="carousel__wrapper">
         <Carousel v-if="!recalculateCarousel" ref="carousel" :autoplay="2000" :wrap-around="true" :transition="500" :breakpoints="carousel_breakpoints">
-          <Slide v-for="speaker in speakers" :key="speaker">
+          <Slide v-for="speaker in main_speakers" :key="speaker">
             <button @click="openPopup(speaker)" class="speaker__card">
               <img class="speaker__image" :src="jeec_api_url + speaker.image" :alt="'Speaker ' + speaker.name + ' image'">
               <p class="speaker__name">Meet {{ speaker.name.split(" ")[0] }}</p>
@@ -42,6 +42,49 @@
         <p class="popup__speaker__bio">{{ popupSpeakerBio }}</p>
       </div>
     </section>
+
+    <h1 class="page__title" style="width:auto">Panel Members and Alumni</h1>
+    <section class="page__section">
+      <div class="carousel__wrapper">
+        <Carousel v-if="!recalculateCarousel2" ref="carousel2" :autoplay="2000" :wrap-around="true" :transition="500" :breakpoints="carousel_breakpoints">
+          <Slide v-for="speaker in other_speakers" :key="speaker">
+            <button @click="openPopup2(speaker)" class="speaker__card">
+              <img class="speaker__image" :src="jeec_api_url + speaker.image" :alt="'Speaker ' + speaker.name + ' image'">
+              <p class="speaker__name">Meet {{ speaker.name.split(" ")[0] }}</p>
+              <div class="company__logo__wrapper gradient-border">
+                <img class="company__logo" :src="jeec_api_url + speaker.company_logo" alt="">
+              </div>
+            </button>
+          </Slide>
+        </Carousel>
+        <button class="carousel__prev" @click="carouselPrev2">
+          <img src="@/assets/caret-left.svg">
+        </button>
+        <button class="carousel__next" @click="carouselNext2">
+          <img src="@/assets/caret-right.svg">
+        </button>
+      </div>
+    </section>
+    <section class="page__section">
+      <div :class="{open: popupOpen2}" ref="popup2" class="speaker__popup">
+        <img :src="popupSpeakerImg2" :alt="popupSpeakerImgAlt2" class="popup__image">
+        <div class="popup__info">
+          <div class="popup__company">
+            <img :src="popupCompanyImg2">
+          </div>
+          <div class="popup__speaker">
+            <div class="popup__speaker__top">
+              <p> {{ popupSpeakerName2 }} </p>
+              <a :href="popupSpeakerLinkedin2">
+                <img src="@/assets/socials/linkedin-logo-blue.svg" alt="Linkedin Logo">
+              </a>
+            </div>
+            <p class="popup__speaker__position">{{ popupSpeakerPosition2 }}</p>
+          </div>
+        </div>
+        <p class="popup__speaker__bio">{{ popupSpeakerBio2 }}</p>
+      </div>
+    </section>
     
   </div>
 </template>
@@ -67,6 +110,7 @@ export default {
         1007: { itemsToShow: 3 }
       },
       popupOpen: false,
+      popupOpen2: false,
       popupSpeaker: "",
       popupSpeakerImg: "",
       popupSpeakerImgAlt: "",
@@ -75,12 +119,27 @@ export default {
       popupSpeakerLinkedin: "",
       popupSpeakerPosition: "",
       popupSpeakerBio: "",
+      popupSpeakerImg2: "",
+      popupSpeakerImgAlt2: "",
+      popupCompanyImg2: "",
+      popupSpeakerName2: "",
+      popupSpeakerLinkedin2: "",
+      popupSpeakerPosition2: "",
+      popupSpeakerBio2: "",
       recalculateCarousel: false,
+      recalculateCarousel2: false,
     }
   }, computed: {
-    ...mapWritableState(useSpeakersStore, ['speakers']),
+    ...mapWritableState(useSpeakersStore, ['main_speakers']),
+    ...mapWritableState(useSpeakersStore, ['other_speakers']),
   }, watch: {
-    speakers() {
+    main_speakers() {
+      this.recalculateCarousel2 = true
+      this.$nextTick(() => {
+        this.recalculateCarousel2 = false
+      })
+    },
+    other_speakers() {
       this.recalculateCarousel = true
       this.$nextTick(() => {
         this.recalculateCarousel = false
@@ -120,6 +179,40 @@ export default {
       this.$refs.carousel.next()
     }, carouselPrev() {
       this.$refs.carousel.prev()
+    },
+    openPopup2(speaker) {
+      if (this.popupOpen2 == true && this.popupSpeaker2 == speaker.name) {
+        this.popupOpen2 = false
+        scrollTo ({
+          top: 0,
+          left: 0,
+        })
+      } else {
+        this.popupOpen2 = true
+        this.popupSpeaker2 = speaker.name
+        
+        setTimeout(() => {
+          let scrollPos = this.$refs.popup2.getBoundingClientRect().top + window.scrollY
+          scrollTo({
+            top: scrollPos - 80,
+            left: 0,
+            behavior: 'smooth',
+          })    
+        }, 10);
+
+        this.popupSpeakerImg2 = this.jeec_api_url + speaker.image
+        this.popupSpeakerImgAlt2 = "Speaker " + speaker.name + " image"
+        this.popupCompanyImg2 = this.jeec_api_url + speaker.company_logo
+        this.popupSpeakerName2 = speaker.name
+        this.popupSpeakerLinkedin2 = speaker.linkedin_url
+        this.popupSpeakerPosition2 = speaker.position
+        this.popupSpeakerBio2 = speaker.bio
+        
+      }
+    }, carouselNext2() {
+      this.$refs.carousel2.next()
+    }, carouselPrev2() {
+      this.$refs.carousel2.prev()
     }
   },
 }
