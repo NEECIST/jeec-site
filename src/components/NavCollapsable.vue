@@ -6,7 +6,6 @@
     <!-- <router-link  to="sponsors" v-if="!EventSet && event_id == jeec23_id">Sponsors</router-link> -->
     <router-link to="speakers" v-if="!EventSet">Speakers</router-link>
     <router-link to="team" v-if="!EventSet">Team</router-link>
-    <router-link to="webapp">Webapp</router-link>
     <div @click="EventSet = true" v-if="!EventSet">Events</div>
     <template v-if="EventSet">
       <div v-for="_event in events" :key="_event.id" class="menu-item">
