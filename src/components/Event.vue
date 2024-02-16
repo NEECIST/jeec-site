@@ -360,7 +360,7 @@
   }
   
   #description.desc-open {
-    max-height: 500px;
+    max-height: 1000px;
     opacity: 1;
     transition: all 500ms ease-in-out;
   }
