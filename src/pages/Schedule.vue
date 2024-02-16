@@ -1,73 +1,343 @@
-<template>
-  <div>
-    <h1 class="page__title">SCHEDULE</h1>
 
-    <section class="page__section">
-      <div class="schedule__wrapper">
-        <button class="schedule__buttons" @click="showSchedule(days.week_day)" v-for="days in event_days" :key="days">
-          {{ days.week_day }}
-        </button>
-      </div>
-      <div class="schedule__activities__wrapper" :class="{ active: weekDay[0].isShowing }" v-for="weekDay in activities">
-        <div class="schedule__activity" v-for="activity in weekDay[1]">
-          <div>
-            <h3>{{ activity.type }}</h3>
-            <h4>{{ activity.name }}</h4>
-          </div>
-          <div v-for="data in activity.companies.data">
-            <img class="activity__company-logo" :src="jeec_api_url + data.logo" alt="" />
-          </div>
+
+<template>
+  <HollowDotsSpinner class="loading-spinner" :class="{invisible: !loading_activities}"
+  :animation-duration="1250"
+  :size="65"
+  :color="'white'"
+  />
+  <div v-if="loading_activities" class="loading-spacer">
+
+  </div>
+  <div class="activities" :class="{ invisible: loading_activities }">
+    <div style="margin-top: 4vh">
+        <div class="carousel" style="margin-bottom: 110px;">
+          <Carousel ref="schedule_carousel" :mouseDrag="false" :touchDrag="false" :itemsToShow="2.5" :wrapAround="true" :transition="500">
+            <Slide v-for="(weekday, index) in weekdays" :key="index">
+                <button  class="carousel__item" style="cursor: pointer; margin-bottom: 10px;" @click="carouselSlideEvent($event.target.parentElement.parentElement)">
+                  <div class="weekday" >
+                    <p style="pointer-events: none;">{{ weekday }}</p>
+                  </div>
+                </button>
+
+                
+                <div class="carousel_item">
+                  <div class="schedule">
+                    <div class="line"></div>
+                    <div v-for="(event, index) in activities" :key="event" class="event">
+                      <Event v-if="getWeekday(event.day) == weekday" color="aliceblue" :event="event" :index="weekday+index" link="/home"></Event>
+                    </div>
+                  </div> 
+                </div>
+            </Slide>
+            <div class="spacer"></div>
+          </Carousel> 
+          
         </div>
-      </div>
-    </section>
+        
+    </div>
+
   </div>
 </template>
 
 <script>
-import { mapWritableState } from "pinia";
-import { useScheduleStore } from "@/stores/ScheduleStore";
+import Event from "@/components/Event.vue";
+import { Carousel,Slide } from 'vue3-carousel'
+import { HollowDotsSpinner } from 'epic-spinners'
+import axios from "axios";
+
+import 'vue3-carousel/dist/carousel.css'
 
 export default {
-  computed: {
-    ...mapWritableState(useScheduleStore, ["activities"]),
+  name: "Schedule",
+  components: {
+    HollowDotsSpinner,
+    Event,
+    Carousel,
+    Slide
   },
-  data() {
+  data: function () {
     return {
-      jeec_api_url: process.env.VUE_APP_JEEC_BRAIN_URL,
-      event_days: [
-        { week_day: "monday", date: "06/03" },
-        { week_day: "tuesday", date: "07/03" },
-        { week_day: "wednesday", date: "08/03" },
-        { week_day: "thursday", date: "09/03" },
-        { week_day: "friday", date: "10/03" },
+      button: "all",
+      model: 0,
+      event_dates: [],
+      activities: [],
+      weekdays: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
       ],
+      loading_activities: true,
     };
   },
   methods: {
-    showSchedule(week) {
-      this.activities.monday[0].isShowing = false;
-      this.activities.tuesday[0].isShowing = false;
-      this.activities.wednesday[0].isShowing = false;
-      this.activities.thursday[0].isShowing = false;
-      this.activities.friday[0].isShowing = false;
-
-      this.activities[week][0].isShowing = true;
+    // get weekday from string format "dd mm yyyy, weekday"
+    getWeekday(date) {
+      return date.split(", ")[1];
     },
+    // onClick weekday element event
+    carouselSlideEvent(target) {
+      // if clicked element is "next"
+      if(target.classList.contains("carousel__slide--next")){
+        // go to next slide
+        this.$refs.schedule_carousel.next()
+
+        // make active slide (soon to be prev slide) pointable
+        const active_slide = document.querySelector(".carousel__slide--active");
+        if (active_slide) {
+          active_slide.firstChild.style.pointerEvents = "all";
+        }
+
+        // update slide pointer events after transition
+        setTimeout(() => {
+          const new_active_slide = document.querySelector(".carousel__slide--active");
+          if (new_active_slide) {
+            new_active_slide.style.pointerEvents = "all";
+            new_active_slide.firstChild.style.pointerEvents = "none";
+            const next_slide = document.querySelector(".carousel__slide--next");
+            if (next_slide) {
+              next_slide.style.pointerEvents = "none";
+              next_slide.firstChild.style.pointerEvents = "all";
+            }
+
+            const weekday = new_active_slide.firstChild.innerText;
+            console.log(weekday)
+            if (weekday.includes("Friday")) {
+              console.log("Friday")
+              next_slide.firstChild.style.pointerEvents = "none";
+            }
+          }
+        }, 550);
+      // if clicked element is "prev"  
+      } else if(target.classList.contains("carousel__slide--prev")){
+        // go to prev slide
+        this.$refs.schedule_carousel.prev()
+
+
+        // make active slide (soon to be next slide) pointable
+        const active_slide = document.querySelector(".carousel__slide--active");
+        if (active_slide) {
+          active_slide.firstChild.style.pointerEvents = "all";
+        }
+        
+        // update slide pointer events after transition
+        setTimeout(() => {
+          const new_active_slide = document.querySelector(".carousel__slide--active");
+          if (new_active_slide) {
+            new_active_slide.style.pointerEvents = "all";
+            new_active_slide.firstChild.style.pointerEvents = "none";
+            const next_slide = document.querySelector(".carousel__slide--next");
+            if (next_slide) {
+              next_slide.style.pointerEvents = "none";
+              next_slide.firstChild.style.pointerEvents = "all";
+            }            
+          }
+        }, 550);
+      }
+    }
+  },
+ 
+  mounted() {
+   
+    // make active slide non pointer
+    const active_slide = document.querySelector(".carousel__slide--active");
+    if (active_slide) {
+      active_slide.firstChild.style.pointerEvents = "none";
+    }
+
+    // workaround to make add-to-calendar icon pointable
+    const next_slide = document.querySelector(".carousel__slide--next");
+    if (next_slide) {
+      next_slide.style.pointerEvents = "none";
+      next_slide.firstChild.style.pointerEvents = "all";
+    }
+
+    // make non loopable slides
+    const slide_clones = document.querySelectorAll(".carousel__slide--clone");
+    for (let i = 0; i < slide_clones.length; i++) {
+      if (slide_clones[i].innerText.includes( "Friday" ) || slide_clones[i].innerText.includes("Monday")) {
+        slide_clones[i].style.opacity = 0;
+        slide_clones[i].style.pointerEvents = "none";
+      }
+    }
+    
+    // get activities
+    axios
+      .get(
+        process.env.VUE_APP_JEEC_WEBSITE_API_URL +
+          "/activities_website",
+        {
+          auth: {
+            username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+            password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
+          },
+        }
+      )
+      .then((response) => {
+        this.activities = response.data.data;
+        console.log(this.activities)
+      }).finally(() => {
+      this.loading_activities = false;
+      const activities = document.querySelector('.activities');
+
+      const loading_spinner = document.querySelector('.loading-spinner');
+      const active_slide = document.querySelector(".carousel__slide--active");
+
+     
+    })
   },
 };
 </script>
 
-<style>
-.schedule__activities__wrapper {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+<style scoped>
+.loading-spacer{
+  height: 100svh;
+}
+.activities {
+  background-color: #e6e6e600;
+  align-items: start;
+  overflow-x: visible;
+  opacity: 1;
+  transition: 1s;
 }
 
-.schedule__activities__wrapper.active{
-  position: static;
+.activities.invisible{
+  opacity: 0;
+}
+
+.activities.visible{
   opacity: 1;
-  pointer-events: all;
+  transition: 1s;
+}
+
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+
+}
+
+.loading-spinner.invisible{
+  opacity: 0;
+  transition: 0.01s;
+}
+
+.carousel{
+  /* height: 90vh; */
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.carousel__item {
+  min-height: 30px;
+  width: 100%;
+  background-color: var(--vc-clr-primary);
+  color: var(--vc-clr-white);
+  font-size: 14px;
+  border-radius: 0px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+.carousel__item  .schedule{
+  position: relative;
+}
+
+.line {
+  height: 100%;
+  width: 2px;
+  position: fixed;
+  background-color: white;
+  margin-left: 4px;
+  margin-top: 1vh;
+  opacity: 0;
+}
+
+.carousel__slide {
+  padding: 0px;
+  align-items: start;
+  justify-content: start;
+  display: flex;
+  flex-direction: column;;
+  transform: rotateY(0);
+
+}
+.carousel__track{
+  justify-content:safe center;
+
+}
+
+.carousel__icon{
+  fill: none;
+}
+
+.carousel__slide--prev {
+  transform: rotateY(0);
+}
+
+.carousel__slide--next {
+  transform: rotateY(0);
+}
+
+
+
+.carousel__track {
+  transform-style: preserve-3d;
+}
+
+.carousel__slide--sliding {
+  transition: 0.5s;
+}
+
+/*  */
+.weekday{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.schedule{
+  opacity: 0;
+
+}
+
+.carousel__slide{
+  height: 0;
+}
+
+.carousel__slide--active {
+  opacity: 1;
+  transform: rotateY(0) scale(1);
+  transition: 0.5s;
+  align-items: center;
+  height: auto;
+}
+.carousel__slide--active .schedule {
+  transition: 0.5s;
+  opacity: 1;
+  width: 85vw;
+  /* height: 65vh; */
+  overflow-x: hidden;
+  overflow: visible;
+}
+
+.carousel__slide--active .line{
+  opacity: 1;
+}
+
+.carousel__slide--active .spacer{
+  height: 100px;
+  flex-direction: column;
+  flex: 1;
 }
 
 </style>

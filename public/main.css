@@ -154,3 +154,40 @@ p, a, button, li {
     font-size: 1.8rem;
   }
 }
+
+.radient-border-passthrough {
+  position: relative;
+
+  --_border-radius: var(--border-radius, 20px);
+  --_background: var(--background, radial-gradient(ellipse 150% 150% at 15% 0%, rgba(76, 202, 240, 0.14) 0%, rgba(76, 202, 240, 0.08) 70%, rgba(76, 202, 240, 0) 100%));
+  --_border-background: var(--border-background, linear-gradient(165deg, #605ED0 0%, #4CC9F0 40%, #7209B7 100%));
+  --_border-width: var(--border-width, 3px);
+  
+  background: var(--_background);
+  border-radius: var(--_border-radius);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+}
+
+.radient-border-passthrough::before,
+.radient-border-passthrough_child {
+  /* content: ""; */
+  /* create a ::before element in the parent element with the above attribute so there is no need to create an explicit child element */
+
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  padding: var(--_border-width);
+  border-radius: var(--_border-radius);
+  background: var(--_border-background);
+  -webkit-mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0);
+  mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
