@@ -13,6 +13,12 @@ export const usePartnersStore = defineStore("PartnersStore", {
         sponsors:[],
         research_clubs:[],
       },
+      sponsors: {
+        gold: [],
+        silver: [],
+        bronze: [],
+        platinum:[],
+      },
     };
   },
   actions: {
@@ -43,10 +49,10 @@ export const usePartnersStore = defineStore("PartnersStore", {
         if(element.partnership_tier == "partner_silver"){this.partners.silver.push(element)}
         if(element.partnership_tier == "partner_bronze"){this.partners.bronze.push(element)}
         if(element.partnership_tier == "main_sponsor"){this.partners.main_sponsor.push(element)}
-        if(element.partnership_tier == "sponsor_platinum"){this.partners.sponsors.push(element)}
-        if(element.partnership_tier == "sponsor_gold"){this.partners.sponsors.push(element)}
-        if(element.partnership_tier == "sponsor_silver"){this.partners.sponsors.push(element)}
-        if(element.partnership_tier == "sponsor_bronze"){this.partners.sponsors.push(element)}
+        if(element.partnership_tier == "sponsor_platinum"){this.sponsors.platinum.push(element)}
+        if(element.partnership_tier == "sponsor_gold"){this.sponsors.gold.push(element)}
+        if(element.partnership_tier == "sponsor_silver"){this.sponsors.silver.push(element)}
+        if(element.partnership_tier == "sponsor_bronze"){this.sponsors.bronze.push(element)}
         if(element.partnership_tier == "nucleo"){this.partners.research_clubs.push(element)}
 
       });

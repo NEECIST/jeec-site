@@ -8,7 +8,7 @@
         <div class="nav__links">
           <router-link v-if="event_id==event_default_id" to="schedule">Schedule</router-link>
           <router-link to="partners">Partners</router-link>
-          <!-- <router-link v-if="event_id!=event_default_id" to="sponsors">Sponsors</router-link> -->
+          <router-link v-if="event_id == event_default_id" to="sponsors">Sponsors</router-link>
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
           <EventDropdown></EventDropdown>

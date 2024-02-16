@@ -4,6 +4,7 @@ import axios from "axios";
 import { usePartnersStore } from "./PartnersStore";
 import { useTeamStore } from "./TeamStore";
 import { useSpeakersStore } from "./SpeakersStore";
+import { useSponsorsStore } from "./SponsorsStore";
 
 export const useEventStore = defineStore("EventStore", {
   state: () => {
@@ -46,10 +47,12 @@ export const useEventStore = defineStore("EventStore", {
       const teamStore = useTeamStore();
       const partnersStore = usePartnersStore();
       const speakersStore = useSpeakersStore();
+      // const sponsorsStore = useSponsorsStore();
 
       teamStore.fill(eventId);
       partnersStore.fill(eventId);
       speakersStore.fill(eventId);
+      // sponsorsStore.fill(eventId);
 
       
 

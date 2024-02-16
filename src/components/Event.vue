@@ -103,7 +103,7 @@
     },
     methods: {
       addEvent() {
-        console.log("Add event");
+   
       },
   
       formatToCalendarDate() {

@@ -106,9 +106,9 @@ export default {
             }
 
             const weekday = new_active_slide.firstChild.innerText;
-            console.log(weekday)
+   
             if (weekday.includes("Friday")) {
-              console.log("Friday")
+         
               next_slide.firstChild.style.pointerEvents = "none";
             }
           }
@@ -180,7 +180,7 @@ export default {
       )
       .then((response) => {
         this.activities = response.data.data;
-        console.log(this.activities)
+
       }).finally(() => {
       this.loading_activities = false;
       const activities = document.querySelector('.activities');

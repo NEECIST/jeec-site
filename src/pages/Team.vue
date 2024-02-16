@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      console.log(this.teams)
+   
     }, 5000);
   },
 }
