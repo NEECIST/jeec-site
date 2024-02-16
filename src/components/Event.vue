@@ -67,7 +67,7 @@
   
           <div v-else>
             <div v-if="loadImg" id="foto" class="radient-border-passthrough" style="background-color: darkgray;">
-              <img style="border-radius: 0%;height: 70%; width: 70%;" src="/img/jeec_mobile_white.a2f38783.svg" alt="JEEC">
+              <img style="border-radius: 0%;height: 70%; width: 70%;" src="@/assets/jeec_mobile_white.svg" alt="JEEC">
             </div>
           </div>
   

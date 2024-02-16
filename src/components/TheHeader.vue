@@ -18,10 +18,10 @@
         <NavCollapsable></NavCollapsable>
       </div>
     </nav>
+    <div v-if="event_id == jeec23_id" class="jeec_23_warning">
+      <p class="warning">You are now in JEEC 23!</p>
+    </div>
   </header>
-  <div v-if="event_id == jeec23_id" class="jeec_23_warning">
-    <p class="warning">You are now in JEEC 23!</p>
-  </div>
 </template>
 
 <script>
@@ -46,7 +46,6 @@ header {
   z-index: 9999;
   position: fixed;
   width: 100%;
-
 }
 
 nav {
@@ -179,12 +178,13 @@ nav {
     display: none;
   }
 }
+
 .jeec_23_warning{
   display: flex;
   background-color: #79e0ff;
   position: fixed;
   height: 30px;
-  z-index: 2;
+  z-index: -2;
   top: 70px;
   width: 90%;
   max-width: 600px;

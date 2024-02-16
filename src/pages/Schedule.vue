@@ -1,43 +1,46 @@
 
 
 <template>
-  <HollowDotsSpinner class="loading-spinner" :class="{invisible: !loading_activities}"
-  :animation-duration="1250"
-  :size="65"
-  :color="'white'"
-  />
-  <div v-if="loading_activities" class="loading-spacer">
+  <div>
+    <HollowDotsSpinner class="loading-spinner" :class="{invisible: !loading_activities}"
+      :animation-duration="1250"
+      :size="65"
+      :color="'white'"
+    />
+    <div v-if="loading_activities" class="loading-spacer">
 
-  </div>
-  <div class="activities" :class="{ invisible: loading_activities }">
-    <div style="margin-top: 4vh">
-        <div class="carousel" style="margin-bottom: 110px;">
-          <Carousel ref="schedule_carousel" :mouseDrag="false" :touchDrag="false" :itemsToShow="2.5" :wrapAround="true" :transition="500">
-            <Slide v-for="(weekday, index) in weekdays" :key="index">
-                <button  class="carousel__item" style="cursor: pointer; margin-bottom: 10px;" @click="carouselSlideEvent($event.target.parentElement.parentElement)">
-                  <div class="weekday" >
-                    <p style="pointer-events: none;">{{ weekday }}</p>
-                  </div>
-                </button>
-
-                
-                <div class="carousel_item">
-                  <div class="schedule">
-                    <div class="line"></div>
-                    <div v-for="(event, index) in activities" :key="event" class="event">
-                      <Event v-if="getWeekday(event.day) == weekday" color="aliceblue" :event="event" :index="weekday+index" link="/home"></Event>
-                    </div>
-                  </div> 
-                </div>
-            </Slide>
-            <div class="spacer"></div>
-          </Carousel> 
-          
-        </div>
-        
     </div>
+    <div class="activities" :class="{ invisible: loading_activities }">
+      <div style="margin-top: 4vh">
+          <div class="carousel" style="margin-bottom: 110px;">
+            <Carousel ref="schedule_carousel" :mouseDrag="false" :touchDrag="false" :itemsToShow="2.5" :wrapAround="true" :transition="500">
+              <Slide v-for="(weekday, index) in weekdays" :key="index">
+                  <button class="main-button radient-border-passthrough" :class="weekday.toLowerCase()" style="cursor: pointer; margin-bottom: 10px;" @click="carouselSlideEvent($event.target.parentElement.parentElement)">
+                    <div class="weekday">
+                      <p style="pointer-events: none;">{{ weekday }}</p>
+                    </div>
+                  </button>
 
+                  
+                  <div class="carousel_item">
+                    <div class="schedule">
+                      <div class="line"></div>
+                      <div v-for="(event, index) in activities" :key="event" class="event">
+                        <Event v-if="getWeekday(event.day) == weekday" color="aliceblue" :event="event" :index="weekday+index" link="/home"></Event>
+                      </div>
+                    </div> 
+                  </div>
+              </Slide>
+              <div class="spacer"></div>
+            </Carousel> 
+            
+          </div>
+          
+      </div>
+
+    </div>
   </div>
+  
 </template>
 
 <script>
@@ -192,6 +195,46 @@ export default {
 </script>
 
 <style scoped>
+
+
+.main-button{
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  font-size: 1.3rem;
+  padding: 0.3rem;
+  border: none;
+  cursor: pointer;
+  --background: none;
+  --border-width: 2px 0 0 0;
+  --border-radius: 0 0 0 0;
+  height: 40px;
+}
+.carousel__slide--active .main-button {
+  font-size: 1.4rem;
+  font-weight: 700;
+  --background: radial-gradient(ellipse 60% 120% at 50% 0, #4ccaf032, #7109b70e 90%, #7109b700);
+}
+.main-button::before {
+  content: "";
+}
+.main-button.monday {
+  --border-background: linear-gradient(100deg, #4CC9F0, #5B7EDA);
+  --border-radius: 20px 0 0 0;
+}
+.main-button.tuesday {
+  --border-background: linear-gradient(100deg, #5B7EDA, #6A33C3);
+}
+.main-button.wednesday {
+  --border-background: linear-gradient(100deg, #6A33C3, #890EAE);
+}
+.main-button.thursday {
+  --border-background: linear-gradient(100deg, #890EAE, #C11A99);
+}
+.main-button.friday {
+  --border-background: linear-gradient(100deg, #C11A99, #F72585);
+  --border-radius: 0 20px 0 0;
+}
+
 .loading-spacer{
   height: 100svh;
 }
@@ -325,6 +368,7 @@ export default {
   transition: 0.5s;
   opacity: 1;
   width: 85vw;
+  max-width: 800px;
   /* height: 65vh; */
   overflow-x: hidden;
   overflow: visible;
