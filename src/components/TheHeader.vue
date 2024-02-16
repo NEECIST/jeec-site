@@ -19,6 +19,9 @@
       </div>
     </nav>
   </header>
+  <div v-if="event_id == jeec23_id" class="jeec_23_warning">
+    <p class="warning">You are now in JEEC 23!</p>
+  </div>
 </template>
 
 <script>
@@ -175,5 +178,25 @@ nav {
     position: absolute;
     display: none;
   }
+}
+.jeec_23_warning{
+  display: flex;
+  background-color: #79e0ff;
+  position: fixed;
+  height: 30px;
+  z-index: 2;
+  top: 70px;
+  width: 90%;
+  max-width: 600px;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  translate: -50% 0;
+  border-radius: 0px 0px 30px 30px;
+}
+
+.warning{
+  color: white;
+  font-weight: 600;
 }
 </style>
