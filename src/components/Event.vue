@@ -25,7 +25,7 @@
             <br>
           </div>
   
-          <div v-if="event.description != '' " id="info">
+          <div id="info">
             <a @click="toggleDesc()"> {{ showmore_text }} </a>
           </div>
         </div>
