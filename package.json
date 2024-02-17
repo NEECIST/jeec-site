@@ -10,10 +10,10 @@
     "add-to-calendar-button": "^2.5.10",
     "axios": "^1.5.1",
     "core-js": "^3.8.3",
-    "pinia": "^2.1.7",
     "epic-spinners": "^2.0.0",
-    "vue": "^3.2.13",
+    "pinia": "^2.1.7",
     "sass": "^1.70.0",
+    "vue": "^3.2.13",
     "vue-router": "^4.2.5",
     "vue3-carousel": "^0.3.1"
   },

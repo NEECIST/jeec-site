@@ -26,8 +26,8 @@
                       <h2 style="font-family: 'Lexend Exa'; margin-bottom: 10px;">Job Fair</h2>
                       <div class="showcase">
                         <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="0" :initial_duration="2200" :duration="2500" :step="3"></FadeLoop>
-                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="1" :initial_duration="2400" :duration="2500" :step="3"></FadeLoop>
-                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="2" :initial_duration="2600" :duration="2500" :step="3"></FadeLoop>
+                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="1" :initial_duration="2200" :duration="2500" :step="3"></FadeLoop>
+                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="2" :initial_duration="2200" :duration="2500" :step="3"></FadeLoop>
                       </div>
                     </div>
                   </div>
@@ -106,7 +106,7 @@ export default {
         return [];
       }
 
-      var jobfair_images = this.jobfair_companies[weekday].map(company => process.env.VUE_APP_JEEC_BRAIN_URL + company.logo);
+      var jobfair_images = this.jobfair_companies[weekday].filter(function(company){return company.logo}).map(company => process.env.VUE_APP_JEEC_BRAIN_URL + company.logo);
 
       return jobfair_images;
     },
@@ -209,6 +209,7 @@ export default {
       )
       .then((response) => {
         this.jobfair_companies = response.data;
+        console.log(response.data);
       }).finally(() => {
       this.loading_jobfair = false;
       if (this.loading_activities == false && this.loading_jobfair == false) {
