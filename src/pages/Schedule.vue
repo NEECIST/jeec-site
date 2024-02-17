@@ -24,6 +24,7 @@
                   <div class="carousel__item" style="background-color: transparent;">
                     <div v-if="!loading_jobfair"  class="jobfair radient-border-passthrough">
                       <h2 style="font-family: 'Lexend Exa'; margin-bottom: 10px;">Job Fair</h2>
+                      <p>9:30 - 18:30</p>
                       <div class="showcase">
                         <FadeLoop class="fadeloop"  
                         :image_list="getJobFairImages(weekday)" 
@@ -489,7 +490,7 @@ export default {
   transition: 0.5s;
   opacity: 1;
   width: 80vw;
-  height: 22vh; 
+  height: 28vh; 
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -538,6 +539,13 @@ export default {
   opacity: 1;
   transition: 2.5s;
 }
+
+
+.carousel__slide--active .jobfair p {
+  font-size: 1.1rem;
+  padding: 0.5rem 0;
+}
+
 
 .jobfair::before {
 content: "";
