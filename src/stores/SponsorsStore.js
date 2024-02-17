@@ -37,9 +37,9 @@ export const useSponsorsStore = defineStore("SponsorsStore", {
       arr.forEach((element) => {
         // this.sponsors.platinum.push(element)
         if(element.partnership_tier == "sponsor_platinum"){this.sponsors.platinum.push(element)}
-        if(element.partnership_tier == "sponsor_gold"){this.sponsors.platinum.push(element)}
-        if(element.partnership_tier == "sponsor_silver"){this.sponsors.platinum.push(element)}
-        if(element.partnership_tier == "sponsor_bronze"){this.sponsors.platinum.push(element)}
+        if(element.partnership_tier == "sponsor_gold"){this.sponsors.gold.push(element)}
+        if(element.partnership_tier == "sponsor_silver"){this.sponsors.silver.push(element)}
+        if(element.partnership_tier == "sponsor_bronze"){this.sponsors.bronze.push(element)}
 
       });
     },

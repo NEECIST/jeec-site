@@ -1,9 +1,9 @@
 <template>
   <div class="nav__collapsable">
     <WebAppButton class="webapp"></WebAppButton>
-    <!-- <router-link to="schedule" v-if="!EventSet">Schedule</router-link> -->
+    <router-link to="schedule" v-if="!EventSet && event_id == jeec24_id">Schedule</router-link>
     <router-link to="partners" v-if="!EventSet">Partners</router-link>
-    <!-- <router-link  to="sponsors" v-if="!EventSet && event_id == jeec23_id">Sponsors</router-link> -->
+    <router-link  to="sponsors" v-if="!EventSet && event_id == jeec24_id">Sponsors</router-link>
     <router-link to="speakers" v-if="!EventSet">Speakers</router-link>
     <router-link to="team" v-if="!EventSet">Team</router-link>
     <div @click="EventSet = true" v-if="!EventSet">Events</div>
@@ -39,7 +39,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useEventStore, ['events', 'event_id', 'jeec23_id'])
+    ...mapState(useEventStore, ['events', 'event_id', 'jeec23_id','jeec24_id'])
   },
 }
 </script>

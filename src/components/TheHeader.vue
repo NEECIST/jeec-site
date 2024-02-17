@@ -6,9 +6,9 @@
       </router-link>
       <div class="header__right">
         <div class="nav__links">
-          <!-- <router-link v-if="event_id==event_default_id" to="schedule">Schedule</router-link> -->
+          <router-link v-if="event_id==event_default_id" to="schedule">Schedule</router-link>
           <router-link to="partners">Partners</router-link>
-          <!-- <router-link v-if="event_id!=event_default_id" to="sponsors">Sponsors</router-link> -->
+          <router-link v-if="event_id == event_default_id" to="sponsors">Sponsors</router-link>
           <router-link to="speakers">Speakers</router-link>
           <router-link to="team">Team</router-link>
           <EventDropdown></EventDropdown>
@@ -18,6 +18,9 @@
         <NavCollapsable></NavCollapsable>
       </div>
     </nav>
+    <div v-if="event_id == jeec23_id" class="jeec_23_warning">
+      <p class="warning">You are now in JEEC 23!</p>
+    </div>
   </header>
 </template>
 
@@ -43,7 +46,6 @@ header {
   z-index: 9999;
   position: fixed;
   width: 100%;
-
 }
 
 nav {
@@ -175,5 +177,26 @@ nav {
     position: absolute;
     display: none;
   }
+}
+
+.jeec_23_warning{
+  display: flex;
+  background-color: #79e0ff;
+  position: fixed;
+  height: 30px;
+  z-index: -2;
+  top: 70px;
+  width: 90%;
+  max-width: 600px;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  translate: -50% 0;
+  border-radius: 0px 0px 30px 30px;
+}
+
+.warning{
+  color: white;
+  font-weight: 600;
 }
 </style>

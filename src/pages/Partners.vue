@@ -20,11 +20,6 @@
       <CompanyTier type="Partners" tier="bronze" :companies="partners.bronze"></CompanyTier>
     </section>
 
-    <template v-if="partners.sponsors.length">
-      <section class="page__section">
-        <CompanyTier type="Sponsors" tier="" :companies="partners.sponsors"></CompanyTier>
-      </section>
-    </template>
 
     <template v-if="partners.research_clubs.length">
       <section class="page__section">
@@ -38,13 +33,12 @@
 import CompanyTier from "@/components/CompanyTier.vue"
 import { mapState } from 'pinia'
 import { usePartnersStore } from '@/stores/PartnersStore'
-import { useSponsorsStore } from '@/stores/SponsorsStore'
+
 
 export default {
   components: { CompanyTier, },
   computed: {
     ...mapState(usePartnersStore, ['partners']),
-    ...mapState(useSponsorsStore, ['sponsors'])
   }
 }
 </script>

@@ -20,12 +20,12 @@
 <script>
 import CompanyTier from "@/components/CompanyTier.vue"
 import { mapState } from 'pinia'
-import { useSponsorsStore } from '@/stores/SponsorsStore'
+import { usePartnersStore } from '@/stores/PartnersStore'
 
 export default {
   components: { CompanyTier, },
   computed: {
-    ...mapState(useSponsorsStore, ['sponsors'])
+    ...mapState(usePartnersStore, ['sponsors'])
   }
 }
 </script>
