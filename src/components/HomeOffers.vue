@@ -28,7 +28,7 @@ export default {
       previousOffer: "",
       currentOffer: "offer__2",
       offersList: {
-        offer__1: ["Inside Talks", "Have the possibility of speaking with an engineer about his daily working life and professional career in a round table activity"],
+        offer__1: ["Inside Talks", "Have the possibility of speaking with an engineer about their daily working life and professional career in a round table activity"],
 
         offer__2: ["Job Fair", "Get in touch with your favorite companies and take the chance to clear up doubts or curiosities."],
 
