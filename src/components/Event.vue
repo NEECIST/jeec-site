@@ -51,17 +51,17 @@
           <div v-if="speakers_image_list.length > 0">
   
             <div v-if="loadImg" id="foto" class="radient-border-passthrough">
-              <FadeLoop :image_list="speakers_image_list" :index="index"></FadeLoop>
+              <FadeLoop :image_list="speakers_image_list" :marker="index"></FadeLoop>
             </div>
             <div v-if="companies_image_list.length > 0" id="small-foto" class="radient-border-passthrough">
-              <FadeLoop :image_list="companies_image_list" :index="index"></FadeLoop>
+              <FadeLoop :image_list="companies_image_list" :marker="index"></FadeLoop>
             </div>
   
           </div>
   
           <div v-else-if="speakers_image_list.length == 0 && companies_image_list.length > 0">
             <div v-if="loadImg" id="foto" class="radient-border-passthrough">
-              <FadeLoop :image_list="companies_image_list" :index="index"></FadeLoop>
+              <FadeLoop :image_list="companies_image_list" :marker="index"></FadeLoop>
             </div>
           </div>
   
@@ -98,7 +98,6 @@
       event: Object,
       color: String,
       foto: Object,
-      link: String,
       index: String
     },
     methods: {

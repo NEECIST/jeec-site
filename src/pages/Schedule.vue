@@ -21,12 +21,23 @@
                     </div>
                   </button>
 
+                  <div class="carousel__item" style="background-color: transparent;">
+                    <div v-if="!loading_jobfair"  class="jobfair radient-border-passthrough">
+                      <h2 style="font-family: 'Lexend Exa'; margin-bottom: 10px;">Job Fair</h2>
+                      <div class="showcase">
+                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="0" :initial_duration="2200" :duration="2500" :step="3"></FadeLoop>
+                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="1" :initial_duration="2400" :duration="2500" :step="3"></FadeLoop>
+                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="2" :initial_duration="2600" :duration="2500" :step="3"></FadeLoop>
+                      </div>
+                    </div>
+                  </div>
+
                   
                   <div class="carousel_item">
                     <div class="schedule">
                       <div class="line"></div>
                       <div v-for="(event, index) in activities" :key="event" class="event">
-                        <Event v-if="getWeekday(event.day) == weekday" color="aliceblue" :event="event" :index="weekday+index" link="/home"></Event>
+                        <Event v-if="getWeekday(event.day) == weekday" color="aliceblue" :event="event" :index="weekday+index" ></Event>
                       </div>
                     </div> 
                   </div>
@@ -48,6 +59,7 @@ import Event from "@/components/Event.vue";
 import { Carousel,Slide } from 'vue3-carousel'
 import { HollowDotsSpinner } from 'epic-spinners'
 import axios from "axios";
+import FadeLoop from "@/components/FadeLoop.vue";
 
 import 'vue3-carousel/dist/carousel.css'
 
@@ -57,13 +69,15 @@ export default {
     HollowDotsSpinner,
     Event,
     Carousel,
-    Slide
+    Slide,
+    FadeLoop
   },
   data: function () {
     return {
+      jeec_brain_url: process.env.VUE_APP_JEEC_BRAIN_URL,
       button: "all",
       model: 0,
-      event_dates: [],
+      jobfair_companies: [],
       activities: [],
       weekdays: [
         "Monday",
@@ -72,13 +86,29 @@ export default {
         "Thursday",
         "Friday"
       ],
+      carousel_breakpoints: {
+        0: { itemsToShow: 2.5 },
+        640: { itemsToShow: 3.0 },
+        900: { itemsToShow: 4.8 }
+      },
       loading_activities: true,
+      loading_jobfair: true,
     };
   },
   methods: {
     // get weekday from string format "dd mm yyyy, weekday"
     getWeekday(date) {
       return date.split(", ")[1];
+    },
+    getJobFairImages(weekday) {
+      // map jobfair_companies[weekday].logo to their respective weekdays
+      if (this.jobfair_companies[weekday] == undefined) {
+        return [];
+      }
+
+      var jobfair_images = this.jobfair_companies[weekday].map(company => process.env.VUE_APP_JEEC_BRAIN_URL + company.logo);
+
+      return jobfair_images;
     },
     // onClick weekday element event
     carouselSlideEvent(target) {
@@ -165,6 +195,30 @@ export default {
         slide_clones[i].style.pointerEvents = "none";
       }
     }
+
+    axios
+      .get(
+        process.env.VUE_APP_JEEC_WEBSITE_API_URL +
+          "/website-job-fair",
+        {
+          auth: {
+            username: process.env.VUE_APP_JEEC_WEBSITE_USERNAME,
+            password: process.env.VUE_APP_JEEC_WEBSITE_KEY,
+          },
+        }
+      )
+      .then((response) => {
+        this.jobfair_companies = response.data;
+      }).finally(() => {
+      this.loading_jobfair = false;
+      if (this.loading_activities == false && this.loading_jobfair == false) {
+        const loading_spinner = document.querySelector('.loading-spinner');
+        const activities = document.querySelector('.activities');
+        loading_spinner.classList.add('invisible');
+        activities.classList.remove('invisible');
+        activities.classList.add('visible');
+      }
+    });
     
     // get activities
     axios
@@ -183,10 +237,13 @@ export default {
 
       }).finally(() => {
       this.loading_activities = false;
-      const activities = document.querySelector('.activities');
-
-      const loading_spinner = document.querySelector('.loading-spinner');
-      const active_slide = document.querySelector(".carousel__slide--active");
+      if (this.loading_activities == false && this.loading_jobfair == false) {
+        const loading_spinner = document.querySelector('.loading-spinner');
+        const activities = document.querySelector('.activities');
+        loading_spinner.classList.add('invisible');
+        activities.classList.remove('invisible');
+        activities.classList.add('visible');
+      }
 
      
     })
@@ -289,6 +346,10 @@ export default {
   align-items: center;
   flex-direction: column;
 
+  .jobfair{
+    position: relative;
+  }
+
 }
 .carousel__item  .schedule{
   position: relative;
@@ -350,7 +411,11 @@ export default {
 }
 .schedule{
   opacity: 0;
+}
 
+.jobfair{
+  opacity: 0;
+  height: 0;
 }
 
 .carousel__slide{
@@ -373,6 +438,77 @@ export default {
   overflow-x: hidden;
   overflow: visible;
 }
+
+.carousel__slide--active .jobfair {
+
+
+  --border-radius: 20px;
+  --border-width: 2px;
+  --background: var(--background_, radial-gradient(ellipse 150% 150% at 15% 0%, rgba(76, 202, 240, 0.3) 0%, rgba(76, 202, 240, 0.2) 70%, rgba(76, 202, 240, 0.1) 100%));
+  --border-background: var(--border-background_, linear-gradient(165deg, #605ED0 0%, #4CC9F0 40%, #7209B7 100%));
+
+  --color: white;
+
+  display: flex;
+  transition: 0.5s;
+  opacity: 1;
+  width: 80vw;
+  height: 22vh; 
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 5px;
+  padding-right: 5px;   
+
+
+
+  
+
+  
+}
+
+.carousel__slide--active .jobfair .showcase{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 13vh;
+}
+
+.carousel__slide--active .jobfair .fadeloop{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    align-items: center;
+    position: relative;
+    transition: 0.5s;
+    padding: 10px;
+    opacity: 1;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+}
+
+
+.carousel__slide--active .jobfair h2{
+  opacity: 1;
+  transition: 2.5s;
+}
+
+.jobfair::before {
+content: "";
+}
+
+
+
 
 .carousel__slide--active .line{
   opacity: 1;
