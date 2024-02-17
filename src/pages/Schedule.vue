@@ -25,9 +25,26 @@
                     <div v-if="!loading_jobfair"  class="jobfair radient-border-passthrough">
                       <h2 style="font-family: 'Lexend Exa'; margin-bottom: 10px;">Job Fair</h2>
                       <div class="showcase">
-                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="0" :initial_duration="2200" :duration="2500" :step="3"></FadeLoop>
-                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="1" :initial_duration="2400" :duration="2500" :step="3"></FadeLoop>
-                        <FadeLoop class="fadeloop" :image_list="getJobFairImages(weekday)" :index="2" :initial_duration="2600" :duration="2500" :step="3"></FadeLoop>
+                        <FadeLoop class="fadeloop"  
+                        :image_list="getJobFairImages(weekday)" 
+                        :alt_list="getJobFairAlt(weekday)"
+                        :link_list="getJobFairLinks(weekday)"
+                        :index="0" 
+                        :initial_duration="2200" :duration="2500" :step="3"></FadeLoop>
+
+                      <FadeLoop class="fadeloop" 
+                        :image_list="getJobFairImages(weekday)" 
+                        :alt_list="getJobFairAlt(weekday)"
+                        :link_list="getJobFairLinks(weekday)"
+                        :index="1" 
+                        :initial_duration="2400" :duration="2500" :step="3"></FadeLoop>
+
+                      <FadeLoop class="fadeloop" 
+                        :image_list="getJobFairImages(weekday)" 
+                        :alt_list="getJobFairAlt(weekday)"
+                        :link_list="getJobFairLinks(weekday)"
+                        :index="2" :initial_duration="2600" 
+                        :duration="2500" :step="3"></FadeLoop>
                       </div>
                     </div>
                   </div>
@@ -109,6 +126,24 @@ export default {
       var jobfair_images = this.jobfair_companies[weekday].map(company => process.env.VUE_APP_JEEC_BRAIN_URL + company.logo);
 
       return jobfair_images;
+    },
+    getJobFairLinks(weekday) {
+      // map jobfair_companies[weekday].website to their respective weekdays
+      if (this.jobfair_companies[weekday] == undefined) {
+        return [];
+      }
+
+      var jobfair_links = this.jobfair_companies[weekday].map(company => company.link);
+      return jobfair_links;
+    },
+    getJobFairAlt(weekday) {
+      // map jobfair_companies[weekday].name to their respective weekdays
+      if (this.jobfair_companies[weekday] == undefined) {
+        return [];
+      }
+
+      var jobfair_alt = this.jobfair_companies[weekday].map(company => company.name);
+      return jobfair_alt;
     },
     // onClick weekday element event
     carouselSlideEvent(target) {

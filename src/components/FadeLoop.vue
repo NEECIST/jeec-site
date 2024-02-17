@@ -5,10 +5,15 @@ img {
   object-fit: contain;
   object-position: center;
   transition: 500ms;
+  cursor: default;
+}
+
+img.clickable{
+  cursor: pointer;
 }
 
 .loop-item {
-  display: flex;
+  display:  flex;
   justify-content: center;
   align-items: center;
 }
@@ -24,7 +29,7 @@ img {
 
 <template>
   <div :class="marker" v-if="image_list.length > 0" class="loop-item">
-    <img v-bind:class="{ 'show': isShow, 'fade': isFade }" class="fadeloop-image" :src="image_list[i]" alt="">
+      <img @click="openLink()" v-bind:class="{ 'show': isShow, 'fade': isFade , 'clickable': isClickable}" class="fadeloop-image" :src="image_list[i]" :alt="alt_list[i]">
   </div>
 </template>
 
@@ -33,6 +38,14 @@ export default {
   name: "FadeLoop",
   props: {
     image_list: Array,
+    link_list: {
+      type: Array,
+      default: "",
+    },
+    alt_list: {
+      type: Array,
+      default: "",
+    },
     marker: {
       type: String,
       default: "",
@@ -58,21 +71,24 @@ export default {
     return {
       isShow: true,
       isFade: false,
-      i: this.index
+      i: this.index,
+      isClickable: false,
     }
   },
   methods: {
     toNextImage(duration) {
       this.isShow = false;
       this.isFade = true;
+      this.isClickable = false;
 
       setTimeout(() => {
-
-
-        // tipo aqui faz o loop em steps mas caso  o index + step passar a length
-        // do array da lista de imagens, ele volta para o index correto
-
         this.i = (this.i + this.step) % this.image_list.length;
+
+        if (this.link_list[this.i]) {
+          this.isClickable = true;
+        } else {
+          this.isClickable = false;
+        }
         
         this.isShow = true;
         this.isFade = false;
@@ -81,16 +97,29 @@ export default {
           this.toNextImage(duration);
         }, duration);
       }, 1000);
-    }
+    },
+    openLink() {
+      console.log(this.link_list[this.i]);
+      if (this.link_list.length > 0) {
+        window.open(this.link_list[this.i], "_blank");
+      }
+    },
   },
   mounted() {
+    if (this.link_list[this.i]) {
+      this.isClickable = true;
+    } else {
+      this.isClickable = false;
+    }
 
     if (this.image_list.length > 1) {
+      
       setTimeout(() => {
         this.toNextImage(this.duration);
       }, this.initial_duration);
 
     }
+
   }
 
 };
