@@ -26,7 +26,8 @@ export const useEventStore = defineStore("EventStore", {
           },
         })
         .then((response) => {
-          this.event_default_id = response.data.event_id
+          this.event_default_id = response.data.event_id;
+          this.event_id = response.data.event_id;
         });
 
       axios
