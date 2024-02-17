@@ -100,7 +100,7 @@ export default {
     },
     openLink() {
       console.log(this.link_list[this.i]);
-      if (this.link_list.length > 0) {
+      if (this.link_list[this.i]) {
         window.open(this.link_list[this.i], "_blank");
       }
     },
