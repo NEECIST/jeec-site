@@ -10,7 +10,7 @@
       <p v-if="!webapp" class="text">
         The app is currently closed and will be back online near the event, see you then!
       </p>
-      <WebAppButton v-else :toExternal="true"></WebAppButton>
+      <WebAppButton class="sign-in"  v-else :toExternal="true"></WebAppButton>
     </div>
   
     <div class="what-box big-box">
@@ -36,7 +36,7 @@
 <script setup>
 import WebAppButton from '@/components/WebAppButton.vue';
 
-const webapp = false;
+const webapp = true;
 </script>
 
 <style scoped>
