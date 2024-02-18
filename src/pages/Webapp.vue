@@ -16,8 +16,8 @@
     <div class="what-box big-box">
       <h2 class="box-title what-title">What can I do?</h2>
       <ol class="what-text box-list">
-        <li>Earn Rewards by collecting points;</li>
-        <li>Create a Squad with your friends, earn points together and win Team Prizes;</li>
+        <li>Earn Rewards by collecting points</li>
+        <li>Create a Squad with your friends, earn points together and win Team Prizes</li>
         <li>Check all information regarding the event, including activities, prizes and rankings</li>
       </ol>
     </div>
