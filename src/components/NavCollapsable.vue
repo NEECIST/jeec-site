@@ -1,6 +1,7 @@
 <template>
   <div class="nav__collapsable">
     <WebAppButton class="webapp"></WebAppButton>
+    <router-link to="prizes">Prizes</router-link>
     <router-link to="schedule" v-if="!EventSet && event_id == jeec24_id">Schedule</router-link>
     <router-link to="partners" v-if="!EventSet">Partners</router-link>
     <router-link  to="sponsors" v-if="!EventSet && event_id == jeec24_id">Sponsors</router-link>

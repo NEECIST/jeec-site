@@ -35,8 +35,9 @@ export default {
   data() {
     return {
       isCountdownExpired: false,
+      jeec_brain_url: process.env.VUE_APP_JEEC_BRAIN_URL,
     }
-  }
+  },
 }
 </script>
 

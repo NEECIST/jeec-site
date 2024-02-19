@@ -38,6 +38,11 @@ const routes = [
     component: () => import("@/pages/Webapp.vue"),
   },
   {
+    path: "/prizes",
+    name: "prizes",
+    component: () => import("@/pages/Prizes.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     redirect: "/",
   },
