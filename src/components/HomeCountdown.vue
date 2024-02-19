@@ -11,54 +11,56 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      eventDate: new Date("Feb 19, 2024 09:00:00"),
-      countdown: ["43", "21"],
-      timeLeft: 2,
-      countdownExpired: false,
-    }
-  }, methods: {
-    countdownTimer() {
-      if (this.timeLeft > 0) {
-        setTimeout(() => {
-          this.updateCountdown()
-          this.countdownTimer()
-        }, 20000);
-      } else {
-        this.countdownExpired = true
-      }
-    },
 
-    updateCountdown() {
-      let eventDate = this.eventDate.getTime()
-      let currentDate = new Date().getTime()
+<script setup>
+import { ref, defineEmits } from 'vue';
 
-      let timeLeft = eventDate - currentDate
-      this.timeLeft = timeLeft
+const countdown = ref(["43", "21"]);
+const emit = defineEmits(['countdownExpired']);
 
-      let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const eventDate = new Date("Feb 18, 2024 09:30:00");
+let timeLeft = 2;
 
-      if (hours < 10) {
-        hours = "0" + hours
-      } 
-      
-      if (days < 10) {
-        days = "0" + days
-      }
+function countdownTimer() {
+  if (timeLeft > 0) {
+    setTimeout(() => {
+      updateCountdown();
+      countdownTimer();
+    }, 20000);
+  } else {
+    emit('countdownExpired');
+  }
+};
 
-      this.countdown[0] = days
-      this.countdown[1] = hours
-    }
-  }, created() {
-    this.updateCountdown()
-    this.countdownTimer()
-  },
+function updateCountdown() {
+  let eventTime = eventDate.getTime()
+  let currentTime = new Date().getTime()
+
+  timeLeft = eventTime - currentTime;
+
+  let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+  if (hours < 0) {
+    hours = "00";
+  } else if (hours < 10) {
+    hours = "0" + hours;
+  }
+
+  if (days < 0) {
+    days = "00";
+  } else if (days < 10) {
+    days = "0" + days;
+  }
+
+  countdown.value[0] = days;
+  countdown.value[1] = hours;
 }
+
+updateCountdown();
+countdownTimer();
 </script>
+
 <style>
 .coming-soon__countdown {
   display: flex;
@@ -100,21 +102,26 @@ export default {
     font-size: 5.4rem;
     letter-spacing: 0.6rem;
   }
+
   .countdown__name {
     font-size: 1.8rem;
   }
+
   .countdown__colon {
     margin-right: -1.8rem;
   }
 }
+
 @media screen and (max-width: 640px) {
   .countdown__time {
     font-size: 5rem;
     letter-spacing: 0.4rem;
   }
+
   .countdown__name {
     font-size: 1.6rem;
   }
+
   .countdown__colon {
     margin-right: -1.6rem;
   }

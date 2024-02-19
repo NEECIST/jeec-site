@@ -91,7 +91,9 @@
   width: 50%;
   margin-left: 1rem;
   top: -100px;
+  margin-bottom: -100px;
   display: flex;
+  overflow: hidden;
 }
 
 .map a {
