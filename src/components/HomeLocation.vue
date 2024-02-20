@@ -3,6 +3,7 @@
     <h2 class="title">
       <span class="first">Find us at<br></span>
       <span class="second">Técnico innovation center</span>
+      <span class="sponsor">Powered By<img src="@/assets/Fidelidade_V.png" alt="Fidelidade"></span>
     </h2>
     <div class="img__wrapper">
       <div class="location border">
@@ -43,6 +44,21 @@
 .title .second {
   font-size: clamp(1.6rem, 7vw, 2.8rem);
   color: #4cc9f0;
+  padding-bottom: 0.5rem;
+}
+
+.title .sponsor {
+  font-size: clamp(0.8rem, 4vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 1ch;
+}
+
+.title .sponsor img {
+  height: 1.3em;
+  width: auto;
 }
 
 .img__wrapper {
@@ -118,6 +134,16 @@
 }
 
 @media screen and (max-width: 650px) {
+  /* .title .sponsor {
+    flex-direction: column;
+    gap: 0;
+    height: auto;
+  }
+
+  .title .sponsor img{
+    height: 4rem;
+  } */
+
   .map {
     top: -50px;
   }
