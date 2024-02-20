@@ -1,8 +1,11 @@
 <template>
   <div class="weekly-rewards" v-if="rewards">
     <div class="rewards-container">
-      <div v-for="(reward, key) in rewards" :key="reward" class="reward big radient-border-passthrough">
-        <img :src="jeec_brain_url + reward.image" class="reward-img">
+      <div v-for="(reward, key) in rewards" :key="reward" class="reward">
+        <a class="reward-img big radient-border-passthrough">
+          <img :src="jeec_brain_url + reward.image">
+        </a>
+        <p>{{ reward.name }}</p>
       </div>
     </div>
   </div>
@@ -41,12 +44,28 @@ export default {
   max-width: 600px;
   margin: 0 auto;
   gap: 20px;
-  padding-bottom: 1rem;
+  padding-bottom: 5rem;
 }
 
 .reward {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 33%;
   position: relative;
-  width: 120px;
+}
+
+.reward > p {
+  text-align: center;
+  padding-top: 0.6rem;
+  position: absolute;
+  top: 100%;
+}
+
+.reward-img {
+  position: relative;
+  max-width: 120px;
+  width: 100%;
   aspect-ratio: 1;
   box-shadow: 0px 0px 15px #F72585;
   display: flex;
@@ -56,15 +75,15 @@ export default {
   --border-background: linear-gradient(135deg, #A414A4, #F72585 40%, #7209B7)
 }
 
-.reward::before {
+.reward-img::before {
   content: "";
 }
 
-.reward.big {
-  width: 140px;
+.reward-img.big {
+  max-width: 140px;
 }
 
-.reward-img {
+.reward-img img {
   width: 97%;
   height: 97%;
   border-radius: 50%;

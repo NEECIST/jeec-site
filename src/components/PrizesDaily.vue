@@ -2,16 +2,15 @@
   <div class="daily-rewards" v-if="rewards">
     <carousel :breakpoints="carousel_breakpoints" :items-to-show="4.8" :wrap-around="true" autoplay="2500">
       <Slide v-for="(reward, key) in rewards" :key="reward" class="reward">
-        <div class="reward-img radient-border-passthrough">
-          <img :src="jeec_brain_url + reward.image">
-        </div>
         <p>{{ weekDays[key] }}</p>
+        <a class="reward-img radient-border-passthrough">
+          <img :src="jeec_brain_url + reward.image">
+        </a>
+        <p>{{ reward.name }}</p>
       </Slide>
     </carousel>
   </div>
 </template>
-
-
 
 <script>
 import { Carousel, Slide } from 'vue3-carousel'
@@ -30,7 +29,8 @@ export default {
     return {
       jeec_brain_url: process.env.VUE_APP_JEEC_BRAIN_URL,
       carousel_breakpoints: {
-        0: { itemsToShow: 2.8 },
+        0: { itemsToShow: 2.4 },
+        400: { itemsToShow: 2.8 },
         640: { itemsToShow: 3.6 },
         900: { itemsToShow: 4.8 }
       },
@@ -76,6 +76,18 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 4rem;
+  position: relative;
+}
+
+.reward p:first-child {
+  padding-bottom: 0.3rem;
+  font-size: 1.1rem;
+}
+
+.reward > p:last-child {
+  position: absolute;
+  top: calc(100% - 4rem);
 }
 
 .reward-img {
@@ -86,6 +98,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+
 
   --border-radius: 50%;
   --border-background: linear-gradient(135deg, #605ED0, #4CC9F0 40%, #7209B7);

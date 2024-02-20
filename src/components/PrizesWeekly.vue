@@ -1,11 +1,14 @@
 <template>
   <div class="weekly-rewards" v-if="rewards">
     <div class="rewards-container">
-      <div v-for="(reward, key) in rewards" :key="reward" class="reward radient-border-passthrough" :class="{ 'big': key == 1 }">
-        <img :src="jeec_brain_url + reward.image" class="reward-img">
-        <p class="ranking first" v-if="key == 1">1<sub>st</sub></p>
-        <p class="ranking second" v-if="key == 0">2<sub>nd</sub></p>
-        <p class="ranking third" v-if="key == 2">3<sub>rd</sub></p>
+      <div v-for="(reward, key) in rewards" :key="reward" class="reward" :class="{ 'big': key == 1 }">
+        <a class="reward-img radient-border-passthrough">
+          <img :src="jeec_brain_url + reward.image">
+          <p class="ranking first" v-if="key == 1">1<sub>st</sub></p>
+          <p class="ranking second" v-if="key == 0">2<sub>nd</sub></p>
+          <p class="ranking third" v-if="key == 2">3<sub>rd</sub></p>
+        </a>
+        <p>{{ reward.name }}</p>
       </div>
     </div>
   </div>
@@ -48,8 +51,32 @@ export default {
 }
 
 .reward {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 30%;
+  flex-shrink: 1;
   position: relative;
-  width: 120px;
+  min-width: auto;
+}
+
+.reward > p {
+  padding-top: 0.6rem;
+  position: absolute;
+  text-align: center;
+  top: 100%;
+}
+
+.reward.big {
+  flex-shrink: 0.8;
+  flex-basis: 40%;
+}
+
+
+.reward-img {
+  position: relative;
+  max-width: 120px;
+  width: 100%;
   aspect-ratio: 1;
   box-shadow: 0px 0px 15px #F72585;
   display: flex;
@@ -59,15 +86,15 @@ export default {
   --border-background: linear-gradient(135deg, #A414A4, #F72585 40%, #7209B7)
 }
 
-.reward::before {
+.reward-img::before {
   content: "";
 }
 
-.reward.big {
-  width: 140px;
+.reward.big .reward-img {
+  max-width: 140px;
 }
 
-.reward-img {
+.reward-img img{
   width: 97%;
   height: 97%;
   border-radius: 50%;
