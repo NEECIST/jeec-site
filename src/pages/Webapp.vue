@@ -10,7 +10,7 @@
       <p v-if="!webapp" class="text">
         The app is currently closed and will be back online near the event, see you then!
       </p>
-      <WebAppButton class="sign-in"  v-else :toExternal="true"></WebAppButton>
+      <!-- <WebAppButton class="sign-in"  v-else :toExternal="true"></WebAppButton> -->
     </div>
   
     <div class="what-box big-box">
