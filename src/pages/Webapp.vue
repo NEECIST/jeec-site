@@ -36,7 +36,7 @@
 <script setup>
 import WebAppButton from '@/components/WebAppButton.vue';
 
-const webapp = true;
+const webapp = false;
 </script>
 
 <style scoped>
