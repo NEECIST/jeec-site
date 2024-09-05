@@ -2,14 +2,14 @@
   <div>
     <h1 class="visibility-hidden">JEEC</h1>
     <section class="page__section" id="home__coming-soon">
-      <h2>19th to 23rd FEBRUARY, 2024</h2>
+      <h2>5th to 9th MAY, 2025</h2>
       <template v-if="isCountdownExpired">
         <h2>THE EVENT HAS STARTED</h2>
         <h2 class="glowing-text">See you soon</h2>
       </template>
       <template v-else>
-        <h2>THE EVENT STARTS SOON!</h2>
-        <HomeCountdown @countdownExpired="isCountdownExpired = true"></HomeCountdown>
+        <h2>THE EVENT IS BEING PREPARED!</h2>
+        <HomeCountdown @countdownExpired="isCountdownExpired = false"></HomeCountdown>
       </template>
       <p class="home__paragraph home__description">A group of IST students whose main purpose is to organize an event with the intention of closing the gap between the business world and university life.</p>
     </section>

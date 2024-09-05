@@ -18,7 +18,7 @@ import { ref, defineEmits } from 'vue';
 const countdown = ref(["43", "21"]);
 const emit = defineEmits(['countdownExpired']);
 
-const eventDate = new Date("Feb 18, 2024 09:30:00");
+const eventDate = new Date("May 5, 2025 09:30:00");
 let timeLeft = 2;
 
 function countdownTimer() {
